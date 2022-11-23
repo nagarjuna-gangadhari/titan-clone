@@ -52,15 +52,15 @@
             <Logo class="w-auto h-9"/>
             </a>
         </div>
+        <div><button @click="serachCenterModel">Search Center</button></div>
  
         <nav class="mt-2 px-2">
             <NavItem :item="item" v-for="item in navItems" :key="item.label" />
         </nav>
 
     </div>
- 
-    
   </div>
+  <SearchCenterMOdel />
 </template>
  
 <script setup>
@@ -68,15 +68,19 @@ import {Dialog, DialogOverlay, TransitionChild, TransitionRoot} from '@headlessu
 import {HomeIcon, BackspaceIcon, NewspaperIcon, PhotoIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon, ArrowUpOnSquareIcon } from '@heroicons/vue/24/solid/index.js';
 import Logo from "./Logo.vue";
 import NavItem from "./NavItem.vue";
+import SearchCenterMOdel from "../components/center/SearchCenterModel.vue"
 import { GeneralStore, AUTH } from '@/stores';
 import { useToast } from 'vue-toastification';
+import mitt from 'mitt'
+
+const emitter = mitt()
 
 const toast = useToast()
 
 const navItems = [
-	{ href: "/", active: false, label: "Home", children: [], icon: HomeIcon },
+	{ href: "/", active: false, click: 'serachCenterModel', label: "Home", children: [], icon: HomeIcon },
 	{
-		href: "#", active: false,
+		href: "#", active: false, click: null,
 		label: "Accounts",
 		children: [
 			{ href: "/login", active: false, label: "Sign In", children: [], icon: ArrowRightOnRectangleIcon },
@@ -86,8 +90,8 @@ const navItems = [
 		icon: NewspaperIcon,
 	},
 	{
-		href: "#", active: false,
-		label: "Media",
+		href: "#", active: false, click: 'serachCenterModel()',
+		label: "Center",
 		children: [
 			{ href: "#", active: false, label: "Library", children: [], icon: null },
 			{
@@ -106,6 +110,9 @@ const general_store = GeneralStore()
 const user = AUTH()
 
 
-
+function serachCenterModel() {
+    console.log('hello')
+    emitter.emit('search', { a: 'b' })
+}
 
 </script>

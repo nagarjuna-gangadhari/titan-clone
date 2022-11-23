@@ -18,7 +18,7 @@ export const router = createRouter({
 		{ path: '/login', name: 'Login', meta: { requiresAuth: false }, component: Login, authorize: [] },
 		{ path: '/signup', name: 'Signup', meta: { requiresAuth: false }, component: () => import('@/views/accounts/Signup.vue') },
 		{ path: '/reset-password', name: 'Reset', meta: { requiresAuth: true, authorize: [1] }, component: () => import('@/views/accounts/Reset.vue') },
-		{ path: '/logout', name: 'Logout', meta: { requiresAuth: false }, redirect: '/login'},
+		{ path: '/logout', name: 'Logout', meta: { requiresAuth: false }, component: Login},
     // otherwise redirect to home
     { path: '/:catchAll(.*)', redirect: '/' }
     ]
@@ -37,6 +37,7 @@ router.beforeEach((to, from) => {
   }
   if (to.path == '/logout' && user.token) {
     const auth = AUTH()
+    console.log('sd-sjhcsjcsd-sdcjds')
     auth.logout()
   }
 })

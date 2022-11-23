@@ -21,13 +21,14 @@ const general_store = GeneralStore()
 </script>
 <template >
   <a
+    @click="item.click"
     v-if="!item.children.length"
     :class="[
       'group flex w-full items-center rounded-md py-2 px-3 text-sm',
       'hover:bg-gray-100',
       item.active ? 'font-semibold text-gray-900' : 'font-medium text-gray-800',
     ]"
-    :href="item.href"
+    :href="item.href" 
   >
     <component
       :class="[
