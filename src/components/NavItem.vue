@@ -20,15 +20,14 @@ const general_store = GeneralStore()
 
 </script>
 <template >
-  <a
-    @click="item.click"
+  <router-link
     v-if="!item.children.length"
     :class="[
       'group flex w-full items-center rounded-md py-2 px-3 text-sm',
       'hover:bg-gray-100',
       item.active ? 'font-semibold text-gray-900' : 'font-medium text-gray-800',
     ]"
-    :href="item.href" 
+    :to="item.href" 
   >
     <component
       :class="[
@@ -37,9 +36,10 @@ const general_store = GeneralStore()
       ]"
       :is="item.icon"
       v-if="item.icon"
+      
     ></component>
     <span v-show="general_store.sidebarHover || general_store.sidebarOpened">{{ item.label }}</span>
-  </a>
+  </router-link>
  
   <Disclosure
     v-else

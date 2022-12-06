@@ -51,9 +51,7 @@
             <a href="/">
             <Logo class="w-auto h-9"/>
             </a>
-        </div>
-        <div><button @click="serachCenterModel">Search Center</button></div>
- 
+        </div> 
         <nav class="mt-2 px-2">
             <NavItem :item="item" v-for="item in navItems" :key="item.label" />
         </nav>
@@ -65,43 +63,40 @@
  
 <script setup>
 import {Dialog, DialogOverlay, TransitionChild, TransitionRoot} from '@headlessui/vue';
-import {HomeIcon, BackspaceIcon, NewspaperIcon, PhotoIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon, ArrowUpOnSquareIcon } from '@heroicons/vue/24/solid/index.js';
+import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, BuildingLibraryIcon, UserIcon, ArrowPathIcon } from '@heroicons/vue/24/solid/index.js';
 import Logo from "./Logo.vue";
 import NavItem from "./NavItem.vue";
 import SearchCenterMOdel from "../components/center/SearchCenterModel.vue"
 import { GeneralStore, AUTH } from '@/stores';
 import { useToast } from 'vue-toastification';
-import mitt from 'mitt'
+import { useEvents } from '../services/events';
 
-const emitter = mitt()
-
-const toast = useToast()
+const event = useEvents()
 
 const navItems = [
-	{ href: "/", active: false, click: 'serachCenterModel', label: "Home", children: [], icon: HomeIcon },
+	{ href: "/", active: false, label: "Home", children: [], icon: HomeIcon },
 	{
-		href: "#", active: false, click: null,
-		label: "Accounts",
+		href: "#", active: false,
+		label: "Account",
 		children: [
-			{ href: "/login", active: false, label: "Sign In", children: [], icon: ArrowRightOnRectangleIcon },
-			{ href: "/signup", active: false, label: "Sign Up", children: [], icon: ArrowLeftOnRectangleIcon },
-			{ href: "/reset-password", active: false, label: "Reset Password", children: [], icon: ArrowUpOnSquareIcon },
+			{ href: "/accounts/me", active: false, label: "Me", children: [], icon: UserIcon },
+			{ href: "/accounts/reset-password", active: false, label: "Reset Password", children: [], icon: ArrowPathIcon },
 		],
-		icon: NewspaperIcon,
+		icon: IdentificationIcon,
 	},
 	{
-		href: "#", active: false, click: 'serachCenterModel()',
+		href: "#", active: false,
 		label: "Center",
 		children: [
-			{ href: "#", active: false, label: "Library", children: [], icon: null },
+			{ href: "/center", active: false, label: "Find", children: [], icon: MagnifyingGlassIcon },
 			{
-				href: "#", active: false,
-				label: "Add new",
-				children: [{ href: "#", active: false, label: "Third level", children: [], icon: null }],
+				href: "/center/22/232", active: false,
+				label: "Admin",
+				children: [],
 				icon: null,
 			},
 		],
-		icon: PhotoIcon,
+		icon: BuildingLibraryIcon,
 	},
 ];
 
@@ -110,9 +105,5 @@ const general_store = GeneralStore()
 const user = AUTH()
 
 
-function serachCenterModel() {
-    console.log('hello')
-    emitter.emit('search', { a: 'b' })
-}
 
 </script>

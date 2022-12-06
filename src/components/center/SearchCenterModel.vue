@@ -1,6 +1,6 @@
 <template>
-    <TransitionRoot appear :show="isOpen" as="template">
-      <Dialog as="div" @close="closeSearchCenterModal" class="relative z-10">
+    <TransitionRoot appear :show="centerpop" as="template">
+      <Dialog as="div" @close="event.toggle_centerpop()" class="relative z-10">
         <TransitionChild
           as="template"
           enter="duration-300 ease-out"
@@ -46,7 +46,7 @@
                   <button
                     type="button"
                     class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    @click="closeSearchCenterModal"
+                    @click="event.toggle_centerpop()"
                   >
                     Got it, thanks!
                   </button>
@@ -60,7 +60,6 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
   import {
     TransitionRoot,
     TransitionChild,
@@ -68,24 +67,15 @@
     DialogPanel,
     DialogTitle,
   } from '@headlessui/vue'
-  import mitt from 'mitt'
+  import { storeToRefs } from 'pinia';
+  import { useEvents } from '../../services/events';
 
-const emitter = mitt()
-const isOpen = ref(false)
+  const event = useEvents()
+  const { centerpop } = storeToRefs(event);
   
-
-emitter.on('search', e => console.log('foo', e))
-  
-  function closeSearchCenterModal() {
-    isOpen.value = false
-  }
-
-
-  function openSearchCenterModal() {
-  isOpen.value = true
-}
-
 
 
   </script>
+
+
   

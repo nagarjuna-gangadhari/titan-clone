@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center bg-gradient-to-r via-purple-500 from-orange-500 to-pink-500 w-full h-screen">
         <div class="text-cener text-6xl font-extrabold text-white py-8">Welcome back to {{title}}</div>
         <div class="login w-full h-full flex items-center justify-center">
-            <div class="w-1/2 bg-white shadow-md rounded p-8 flex flex-col">
+            <div class="w-4/12 bg-white shadow-md rounded p-8 flex flex-col">
                 <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
                 <div class="form-group mb-4">
                     <label class="block text-grey-darker text-sm font-bold mb-2">Username</label>

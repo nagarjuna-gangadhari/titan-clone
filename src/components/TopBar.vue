@@ -1,6 +1,6 @@
 <template>
-  <div v-show="user.user.token"
-    class="sticky top-0 min-h-10 h-10 backdrop-opacity-10 backdrop-invert bg-white/80 shadow-2xl flex justify-between py-1 px-3 md:px-6 space-x-3 md:space-x-6 border-b"
+  <div id="topbar" v-show="user.user.token"
+    class="sticky top-0 min-h-10 h-10 backdrop-opacity-10 backdrop-invert bg-white/80 shadow-2xl flex justify-between pt-1 px-3 md:px-6 space-x-3 md:space-x-6 border-b"
   >
     <div class="flex items-center justify- flex-1">
       <button
@@ -60,7 +60,7 @@
           </MenuItem>
           <MenuItem v-slot="{ active }">
             <a
-              href="/logout"
+              href="/accounts/logout"
               :class="{ 'bg-gray-100': active }"
               class="block py-2 px-4 text-sm text-gray-700"
               >Log out</a
@@ -69,7 +69,9 @@
         </MenuItems>
       </transition>
     </Menu>
+    
   </div>
+  <div id="myBar" class="w-full h-[2px] bg-cover bg-center bg-[url('@/assets/top-colored-bar.jpg')]"></div>
 </template>
 
 <script setup>
@@ -83,4 +85,19 @@ import { GeneralStore, AUTH } from "@/stores";
 const general_store = GeneralStore();
 const user = AUTH();
 
+
+
+
+</script>
+<script>
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("topbar").style.top = "0";
+  } else {
+    document.getElementById("topbar").style.top = "-50px";
+  }
+  prevScrollpos = currentScrollPos;
+}
 </script>

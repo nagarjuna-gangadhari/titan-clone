@@ -6,7 +6,7 @@
                       user.user.token ? 'ml-8' : '']">
         <div class="fixed top-0 right-0 left-0 z-19"><TopBar /></div>
         <!-- Content -->
-        <div :class="[user.user.token ? 'ml-8' : 'ml-0']"><router-view /></div>
+        <div :class="[user.user.token ? 'ml-8' : 'ml-0', 'mt-10 bg-gray-50']"><router-view /></div>
       </div>
       <div class="fixed left-0 top-0 z-20"><Sidebar2 /></div>
     </div>
