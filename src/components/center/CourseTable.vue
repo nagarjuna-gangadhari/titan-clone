@@ -1,29 +1,47 @@
 <template>
-    <hot-table :data="data" :rowHeaders="true" :colHeaders="true"></hot-table>
-  </template>
-  
-  <script>
-    import { defineComponent } from 'vue';
-    import { HotTable } from '@handsontable/vue3';
-    import { registerAllModules } from 'handsontable/registry';
-    import 'handsontable/dist/handsontable.full.css';
-  
-    // register Handsontable's modules
-    registerAllModules();
-  
-    export default defineComponent({
-      data() {
-        return {
-          data: [
-            ['', 'Ford', 'Volvo', 'Toyota', 'Honda'],
-            ['2016', 10, 11, 12, 13],
-            ['2017', 20, 11, 14, 13],
-            ['2018', 30, 15, 12, 13]
-          ],
-        };
-      },
-      components: {
-        HotTable,
-      }
-    });
-  </script>
+  <v-grid theme="compact" :source="rows" :columns="columns" filter="true"/>
+</template>
+
+<script>
+import VGrid from "@revolist/vue3-datagrid";
+export default {
+  name: "CourseTableVue",
+  data() {
+    return {
+      columns: [
+        {
+          name: "Birth",
+          prop: "birthdate",
+          columnType: "date",
+          size: 150,
+        },
+        {
+          prop: "name",
+          name: "First",
+          sortable: true,
+          order: 'asc'
+        },
+        {
+          prop: "details",
+          name: "Second",
+        },
+      ],
+      rows: [
+        {
+          birthdate: "2022-08-24",
+          name: "1",
+          details: "Item 1",
+        },
+        {
+          birthdate: "2022-08-24",
+          name: "2",
+          details: "Item 2",
+        },
+      ],
+    };
+  },
+  components: {
+    VGrid,
+  },
+};
+</script>

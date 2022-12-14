@@ -1,7 +1,7 @@
 <template>
   <div v-show="user.user.token" class="flex min-h-screen" @mouseenter="general_store.sidebarHover=true" @mouseleave="general_store.sidebarHover=false">
     <TransitionRoot :show="general_store.sidebarOpened" >
-        <Dialog as="div" @close="general_store.sidebarOpened = false" class="fixed inset-0 z-40 md:hidden">
+        <Dialog as="div" @close="general_store.sidebarOpened = false" class="fixed inset-0 z-[9999] md:hidden">
             <TransitionChild
                 enter="transition ease-in-out duration-200 transform"
                 enter-from="-translate-x-full"
@@ -17,7 +17,7 @@
                     type="button" value="Close sidebar">
                     <BackspaceIcon class="w-5 h-5"/>
                     </button>
-                    <div class="px-6 pt-8 pb-4">
+                    <div class="px-6 py-2">
                     <a href="/">
                         <Logo class="w-auto h-9"/>
                     </a>
@@ -46,24 +46,20 @@
         </Dialog>
     </TransitionRoot>
  
-    <div class="hidden w-16 hover:w-64 bg-gray-50 border-r border-gray-200 md:block">
-        <div class="py-4 px-6">
-            <a href="/">
-            <Logo class="w-auto h-9"/>
-            </a>
-        </div> 
-        <nav class="mt-2 px-2">
+    <div class="hidden w-12 hover:w-64 bg-gray-50 border-r border-gray-200 md:block drop-shadow-2xl">
+        <nav class="mt-2">
             <NavItem :item="item" v-for="item in navItems" :key="item.label" />
         </nav>
 
     </div>
+    
   </div>
   <SearchCenterMOdel />
 </template>
  
 <script setup>
 import {Dialog, DialogOverlay, TransitionChild, TransitionRoot} from '@headlessui/vue';
-import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, BuildingLibraryIcon, UserIcon, ArrowPathIcon } from '@heroicons/vue/24/solid/index.js';
+import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, BuildingLibraryIcon, UserIcon, ArrowPathIcon, RectangleGroupIcon } from '@heroicons/vue/24/solid/index.js';
 import Logo from "./Logo.vue";
 import NavItem from "./NavItem.vue";
 import SearchCenterMOdel from "../components/center/SearchCenterModel.vue"
@@ -93,7 +89,7 @@ const navItems = [
 				href: "/center/22/232", active: false,
 				label: "Admin",
 				children: [],
-				icon: null,
+				icon: RectangleGroupIcon,
 			},
 		],
 		icon: BuildingLibraryIcon,

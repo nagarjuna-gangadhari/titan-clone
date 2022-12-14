@@ -1,14 +1,14 @@
 <template>
   <div class="app">
     <!-- Sidebar -->
-    <div class="flex relative">
-      <div :class="['flex-1 h-screen overflow-y-auto relative',
-                      user.user.token ? 'ml-8' : '']">
-        <div class="fixed top-0 right-0 left-0 z-19"><TopBar /></div>
+    <div class="fixed top-0 right-0 left-0 z-[9999]"><TopBar /></div>
+    <div>
+      <div :class="[user.user.token ? 'mt-8' : '']">
+        <div v-if="user.user.token" class="fixed left-0 top-8 z-[8888]"><Sidebar2 /></div>
         <!-- Content -->
-        <div :class="[user.user.token ? 'ml-8' : 'ml-0', 'mt-10 bg-gray-50']"><router-view /></div>
+        <div :class="[user.user.token ? 'ml-8' : '']"><router-view /></div>
       </div>
-      <div class="fixed left-0 top-0 z-20"><Sidebar2 /></div>
+      
     </div>
   </div>
 </template>
@@ -22,5 +22,17 @@ const user = AUTH();
 document.title = import.meta.env.VITE_APP_TITLE;
 </script>
 
+<style>
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(167, 167, 167);
+  border-radius: 6px;
+  
+}
+
+</style>
 
 

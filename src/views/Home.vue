@@ -4,7 +4,7 @@
 
 	
 
-<div class="md:p-12 xl:container">
+<div class="">
     <div aria-hidden="true" class="w-96 h-32 rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl opacity-50 dark:opacity-20"></div>
     <div class="lg:flex lg:items-center lg:gap-12">
         <div class="text-center lg:text-left md:mt-12 lg:mt-0 sm:w-10/12 md:w-2/3 sm:mx-auto lg:mr-auto lg:w-6/12">

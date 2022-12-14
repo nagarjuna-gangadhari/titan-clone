@@ -8,6 +8,8 @@ import "./style.css";
 import 'vue-material-design-icons/styles.css';
 import "vue-toastification/dist/index.css";
 import './plugins'
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import 'vue3-easy-data-table/dist/style.css';
 
 const toast_options = {
   // You can set your default options here
@@ -19,6 +21,7 @@ app.use(createPinia());
 app.use(router);
 app.use(Toast, toast_options);
 app.provide('GROUP', {})
+app.component('EasyDataTable', Vue3EasyDataTable);
 
 app.mount("#app");
 

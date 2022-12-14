@@ -48,7 +48,7 @@ const general_store = GeneralStore()
     >
     <DisclosureButton 
       :class="[
-        'group flex w-full items-center rounded-md py-2 px-3 text-left text-sm',
+        'group flex w-full items-center rounded-md py-2 px-3 text-left text-xs',
         'hover:bg-gray-100',
         open ? 'font-semibold text-lime-500' : 'font-medium text-gray-600',
       ]"
