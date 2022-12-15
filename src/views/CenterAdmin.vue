@@ -6,13 +6,13 @@
             <div class="text-center font-bold py-4 px-10">DEMO CENTER</div>
             <div class="w-full flex flex-col items-center justify-center">
                 <div class="w-11/12 bg-lime-50 border border-gray-400 rounded">
-                    <div class="flex justify-between text-xs font-bold bg-teal-600 text-white border-b border-teal-800 p-1">
+                    <div class="flex justify-between text-xs font-bold bg-teal-800 text-white border-b border-teal-800 p-1">
                         <div class="text-left">WEEKLY TIMETABLE</div>
 
-                        <div class="text-right"><date-picker v-model:value="dateRange" range></date-picker></div>
+                        <div class="text-right"><date-picker v-model:value="dateRange" :showWeekNumbers="showWeekNumbers" range></date-picker></div>
                     </div>
-                    <div class="flex flex-row text-xs bg-lime-100 border-b border-teal-600 divide-x-2 divide-teal-600 text-center font-semibold pr-1">
-                        <div class="py-2 w-[12.5%] bg-lime-200">TIME SLOT</div>
+                    <div class="flex flex-row text-xs text-white bg-teal-800 border-b border-teal-600 divide-x-2 divide-teal-600 text-center font-semibold pr-1">
+                        <div class="py-2 w-[12.5%] text-amber-400">TIME SLOT</div>
                         <div class="py-2 w-[12.5%]" title="22-03-2022">MONDAY</div>
                         <div class="py-2 w-[12.5%]" title="22-03-2022">TUESDAY</div>
                         <div class="py-2 w-[12.5%]" title="22-03-2022">WEDNESDAY</div>
@@ -35,34 +35,92 @@
                     </div>
                 </div>
             </div>
-            <!-- offering section -->
             <div class="w-full flex flex-col my-6">
-                <!-- running -->
-                <div class="w-full flex flex-col items-center justify-center">
-                    <div class="w-11/12 rounded border-l">
-                        <div class="text-left text-xs font-bold bg-fuchsia-800 text-white rounded-t p-1">RUNNING COURSES [9]</div>
-                        <div class="flex flex-row py-1 shadow-lg shadow-cyan-50/50 bg-gradient-to-b from-fuchsia-800 to-fuchsia-50 text-gray-900">
-                            <div class="w-4/12 flex justify-center border-r"><BookmarkIcon class="w-5 h-5" /></div>
+                <!-- pending -->
+                <div class="w-full flex flex-col items-center justify-center space-y-6">
+                    <div class="w-11/12 min-h-[10rem] rounded border-l-8 border-r border-b border-green-400">
+                        <div class="text-left text-xs font-bold p-1 text-green-800 border-green-400 border-t bg-green-50">RUNNING COURSES [9]</div>
+                        <div class="flex flex-row py-1 shadow-lg shadow-cyan-50/50 border-green-400 border-b bg-green-50">
+                            <div class="w-2/12 flex justify-center border-r"><BookmarkIcon class="w-5 h-5" /></div>
                             <div class="w-3/12 flex justify-center border-r"><CalendarDaysIcon class="w-5 h-5" /></div>
-                            <div class="w-3/12 flex justify-center border-r"><UserIcon class="w-5 h-5" /></div>
-                            <div class="w-2/12 flex justify-center"><PencilSquareIcon class="w-5 h-5" /></div>
+                            <div class="w-2/12 flex justify-center border-r"><ClockIcon class="w-5 h-5" /></div>
+                            <div class="w-2/12 flex justify-center border-r"><UserIcon class="w-5 h-5" /></div>
+                            <div class="w-3/12 flex justify-center"><PuzzlePieceIcon class="w-5 h-5" /></div>
                         </div>
-                        <div class="h-96 overflow-y-auto">
-                            <div v-for="index in 8" :key="index" class="flex flex-row text-sm px-2 pt-2 border-b py-2">
-                                <div class="w-4/12 text-start border-r flex items-center">7th Science, (16813)</div>
+                        <div class="">
+                            <div v-for="index in 4" :key="index" class="flex flex-row text-xs p-2 border-b">
+                                <div class="w-2/12 text-start border-r flex items-center">7th Science, (16813)</div>
                                 <div class="w-3/12 text-center border-r flex justify-center items-center">1st Jul, 2022 to 31st Mar, 2023</div>
-                                <div class="w-3/12 flex justify-center items-center border-r text-truncate">100021 - adam smith</div>
-                                <div class="w-2/12 flex justify-center items-center"><div class="bg-blue-400 px-3 py-1 rounded hover:scale-105 coursor-pointer">Edit</div></div>
+                                <div class="w-2/12 text-center border-r flex flex-col justify-center items-center">
+                                    <div>09:00 - 10:00</div>
+                                    <div>10:00 - 11:00</div>
+                                </div>
+                                <div class="w-2/12 flex justify-center items-center border-r text-truncate">100021 - adam smith</div>
+                                <div class="w-3/12 flex justify-center items-center space-x-2">
+                                    <div class="bg-gray-500 text-white px-3 py-1 rounded hover:scale-105 cursor-pointer">Edit</div>
+                                    <div class="bg-gray-500 text-white px-3 py-1 rounded hover:scale-105 cursor-pointer">Reference</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-11/12 min-h-[10rem] rounded border-l-8 border-r border-b border-amber-300">
+                        <div class="text-left text-xs font-bold p-1 text-amber-800 border-amber-300 border-t bg-amber-50">PENDING COURSES [4]</div>
+                        <div class="flex flex-row py-1 shadow-lg shadow-cyan-50/50 border-amber-300 border-b bg-amber-50">
+                            <div class="w-2/12 flex justify-center border-r"><BookmarkIcon class="w-5 h-5" /></div>
+                            <div class="w-3/12 flex justify-center border-r"><CalendarDaysIcon class="w-5 h-5" /></div>
+                            <div class="w-2/12 flex justify-center border-r"><ClockIcon class="w-5 h-5" /></div>
+                            <div class="w-2/12 flex justify-center border-r"><UserIcon class="w-5 h-5" /></div>
+                            <div class="w-3/12 flex justify-center"><PuzzlePieceIcon class="w-5 h-5" /></div>
+                        </div>
+                        <div class="">
+                            <div v-for="index in 4" :key="index" class="flex flex-row text-xs p-2 border-b">
+                                <div class="w-2/12 text-start border-r flex items-center">7th Science, (16813)</div>
+                                <div class="w-3/12 text-center border-r flex justify-center items-center">1st Jul, 2022 to 31st Mar, 2023</div>
+                                <div class="w-2/12 text-center border-r flex flex-col justify-center items-center">
+                                    <div>09:00 - 10:00</div>
+                                    <div>10:00 - 11:00</div>                                  
+                                </div>
+                                <div class="w-2/12 flex justify-center items-center border-r text-truncate">----</div>
+                                <div class="w-3/12 flex justify-center items-center space-x-2">
+                                    <div class="bg-gray-500 text-white px-3 py-1 rounded hover:scale-105 cursor-pointer">Edit</div>
+                                    <div class="bg-gray-500 text-white px-3 py-1 rounded hover:scale-105 cursor-pointer">Reference</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
+                    
+                    <div class="w-11/12 min-h-[10rem] rounded border-l-8 border-r border-b border-red-300">
+                        <div class="text-left text-xs font-bold p-1 text-red-800 border-red-300 border-t bg-red-50">BACKFILL COURSES [4]</div>
+                        <div class="flex flex-row py-1 shadow-lg shadow-cyan-50/50 border-red-300 border-b bg-red-50">
+                            <div class="w-2/12 flex justify-center border-r"><BookmarkIcon class="w-5 h-5" /></div>
+                            <div class="w-3/12 flex justify-center border-r"><CalendarDaysIcon class="w-5 h-5" /></div>
+                            <div class="w-2/12 flex justify-center border-r"><ClockIcon class="w-5 h-5" /></div>
+                            <div class="w-2/12 flex justify-center border-r"><UserIcon class="w-5 h-5" /></div>
+                            <div class="w-3/12 flex justify-center"><PuzzlePieceIcon class="w-5 h-5" /></div>
+                        </div>
+                        <div class="">
+                            <div v-for="index in 4" :key="index" class="flex flex-row text-xs p-2 border-b">
+                                <div class="w-2/12 text-start border-r flex items-center">7th Science, (16813)</div>
+                                <div class="w-3/12 text-center border-r flex justify-center items-center">1st Jul, 2022 to 31st Mar, 2023</div>
+                                <div class="w-2/12 text-center border-r flex flex-col justify-center items-center">
+                                    <div>09:00 - 10:00</div>
+                                    <div>10:00 - 11:00</div>                                  
+                                </div>
+                                <div class="w-2/12 flex justify-center items-center border-r text-truncate">----</div>
+                                <div class="w-3/12 flex justify-center items-center space-x-2">
+                                    <div class="bg-gray-500 text-white px-3 py-1 rounded hover:scale-105 cursor-pointer">Edit</div>
+                                    <div class="bg-gray-500 text-white px-3 py-1 rounded hover:scale-105 cursor-pointer">Reference</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         </div>
         <div class="w-full lg:w-3/12 mx-h-screen">
-            <div class="py-2 text-xs font-bold uppercase rounded-t text-center bg-lime-400 mt-14 border-l">Center Information</div>
+            <div class="py-2 text-xs font-bold uppercase rounded-t text-white text-center bg-blue-900 mt-14 border-l">Center Information</div>
             <table class="table-fixed text-xs">
                 <tbody class="divide-y">
                     <tr class="border border-slate-300"><td> Center</td><td> DemoCenter</td></tr>
@@ -88,7 +146,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { UserIcon, BookmarkIcon, PencilSquareIcon, CalendarDaysIcon } from '@heroicons/vue/24/solid/index.js';
+import { UserIcon, BookmarkIcon, PuzzlePieceIcon, CalendarDaysIcon, ClockIcon } from '@heroicons/vue/24/solid/index.js';
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
 let dateRange = ref(null)
