@@ -6,7 +6,7 @@
       <div :class="[user.user.token ? 'mt-8' : '']">
         <div v-if="user.user.token" class="fixed left-0 top-8 z-[8888]"><Sidebar2 /></div>
         <!-- Content -->
-        <div :class="[user.user.token ? 'ml-8' : '']"><router-view /></div>
+        <div :class="[user.user.token ? 'md:ml-8' : '']"><router-view /></div>
       </div>
       
     </div>
