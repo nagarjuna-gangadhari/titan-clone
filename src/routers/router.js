@@ -26,8 +26,10 @@ export const router = createRouter({
 		
     
     // center
-      {path: '/center', name: 'Center', meta: { requiresAuth: true }, component: () => import('@/views/Center.vue')},
-      {path: '/center/:id(\\d+)/:ay(\\d+)', name: 'CenterAdmin', props: true, meta: { requiresAuth: true }, component: () => import('@/views/CenterAdmin.vue') },
+      {path: '/center', name: 'Center', meta: { requiresAuth: true }, component: () => import('@/views/center/Center.vue')},
+      {path: '/center/:id(\\d+)/:ay(\\d+)', name: 'CenterAdmin', props: true, meta: { requiresAuth: true }, component: () => import('@/views/center/CenterAdmin.vue') },
+      {path: '/center/:id(\\d+)/:ay(\\d+)/class', name: 'Class', meta: { requiresAuth: true }, component: () => import('@/views/center/Class.vue')},
+      {path: '/center/course', name: 'Course', meta: { requiresAuth: true }, component: () => import('@/views/center/Course.vue')},
       
 
 

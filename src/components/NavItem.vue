@@ -23,7 +23,7 @@ const general_store = GeneralStore()
   <router-link
     v-if="!item.children.length"
     :class="[
-      'group flex w-full items-center rounded-md py-2 px-3 text-sm',
+      'group flex w-full items-center rounded-md py-2 px-3 text-xs',
       'hover:bg-gray-100',
       item.active ? 'font-semibold text-gray-900' : 'font-medium text-gray-800',
     ]"

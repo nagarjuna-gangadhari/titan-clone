@@ -1,14 +1,21 @@
 <template>
     <div class="w-full h-full font-sans bg-gray-100">
         <div class="w-full h-full overflow-hidden flex flex-col lg:flex-row items-cener justify-center space-y-4 md:space-y-0">
-            <div class="w-full lg:w-9/12">
-                <div class="text-center font-bold py-4 px-10">DEMO CENTER</div>
+            <div class="w-full flex flex-col items-center justify-center lg:w-9/12">
+                <div class="text-center font-bold py-4 px-10">232 - DEMO CENTER</div>
                 <div class="w-[40rem] overflow-x-scroll md:w-full flex flex-col items-center justify-center scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-gray-100 scrollbar:!w-1.5 scrollbar:!h-1.5">
                     <div class="w-full md:w-11/12 bg-white border border-gray-400 rounded">
                         <div class="flex justify-between text-xs font-bold bg-teal-800 text-white border-b border-teal-800 p-1">
                             <div class="text-left">WEEKLY TIMETABLE</div>
+                            <button
+                                type="button"
+                                @click="openModal"
+                                class="rounded-md bg-black bg-opacity-20 px-4 py-1 text-xs hover:scale-105 font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                            >
+                                FULL CALENDER
+                            </button>
 
-                            <div class="text-right"><date-picker v-model:value="dateRange" :showWeekNumbers="showWeekNumbers" range></date-picker></div>
+                            <div class="text-right hidden"><date-picker v-model:value="dateRange" :showWeekNumbers="showWeekNumbers" range></date-picker></div>
                         </div>
                         <div class="flex flex-row text-xs text-amber-400 bg-teal-800 border-b border-teal-600 divide-x-2 divide-teal-600 text-center font-semibold pr-1 shadow-2xl">
                             <div class="py-2 w-[12.5%]">TIME SLOT</div>
@@ -33,7 +40,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="w-11/12 flex flex-row items-around justify-start my-2 text-xs">
+                        <button v-for="c in colors" :key="c.color" class="bg-transparent hover:bg-{{c.color}}-600 text-{{c.color}}-800 font-semibold hover:text-white py-1 px-4 border border-{{c.color}}-600 hover:border-transparent rounded-full mx-2">Button</button>
+                    </div>
                 </div>
+                
                 <div class="w-full flex flex-col my-6">
                     <!-- pending -->
                     <div class="w-full flex flex-col items-center justify-center space-y-6">
@@ -139,7 +150,59 @@
         
         </div>
     </div>
-</template>
+
+    <TransitionRoot appear :show="isOpen" as="template">
+      <Dialog as="div" @close="closeModal" class="relative z-10">
+        <TransitionChild
+          as="template"
+          enter="duration-300 ease-out"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="duration-200 ease-in"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
+        >
+          <div class="fixed inset-0 bg-black bg-opacity-25" />
+        </TransitionChild>
+  
+        <div class="fixed inset-0 top-5 overflow-y-auto">
+          <div
+            class="flex min-h-full items-center justify-center p-4 text-center"
+          >
+            <TransitionChild
+              as="template"
+              enter="duration-300 ease-out"
+              enter-from="opacity-0 scale-95"
+              enter-to="opacity-100 scale-100"
+              leave="duration-200 ease-in"
+              leave-from="opacity-100 scale-100"
+              leave-to="opacity-0 scale-95"
+            >
+              <DialogPanel
+                class="w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-2 text-left align-middle shadow-xl transition-all"
+              >
+                <div class="w-full flex justify-end -mt-1 ml-1 mb-1">
+                  <div type="button" class=" rounded-full bg-red-400 ring-1 hover:scale-110 hover:bg-red-500 px-2 text-sm font-bold text-white cursor-pointer" @click="closeModal">X</div>
+                </div>
+                
+                <div>
+                    <Gant2Vue />
+                </div>
+  
+                
+              </DialogPanel>
+            </TransitionChild>
+          </div>
+        </div>
+      </Dialog>
+    </TransitionRoot>
+    
+    
+  </template>
+  
+
+  
+
 
 
 <script setup>
@@ -147,5 +210,24 @@ import { ref } from 'vue'
 import { UserIcon, BookmarkIcon, PuzzlePieceIcon, CalendarDaysIcon, ClockIcon } from '@heroicons/vue/24/solid/index.js';
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
+import Gant2Vue from '../../components/center/Gant2.vue';
+import {
+    TransitionRoot,
+    TransitionChild,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+  } from '@headlessui/vue'
+  
+  const isOpen = ref(true)
+  
+  function closeModal() {
+    isOpen.value = false
+  }
+  function openModal() {
+    isOpen.value = true
+  }
+
 let dateRange = ref(null)
+const colors = ref([{color:'red'},{color:'yellow'},{color:'blue'},{color:'green'}])
 </script>

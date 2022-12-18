@@ -59,7 +59,8 @@
  
 <script setup>
 import {Dialog, DialogOverlay, TransitionChild, TransitionRoot} from '@headlessui/vue';
-import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, BuildingLibraryIcon, UserIcon, ArrowPathIcon, RectangleGroupIcon } from '@heroicons/vue/24/solid/index.js';
+import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, BuildingLibraryIcon, UserIcon, ArrowPathIcon, RectangleGroupIcon,
+        BookOpenIcon, TicketIcon, ClipboardDocumentIcon, StopIcon } from '@heroicons/vue/24/outline/index.js';
 import Logo from "./Logo.vue";
 import NavItem from "./NavItem.vue";
 import SearchCenterMOdel from "../components/center/SearchCenterModel.vue"
@@ -84,16 +85,26 @@ const navItems = [
 		href: "#", active: false,
 		label: "Center",
 		children: [
-			{ href: "/center", active: false, label: "Find", children: [], icon: MagnifyingGlassIcon },
-			{
-				href: "/center/22/232", active: false,
-				label: "Admin",
-				children: [],
-				icon: RectangleGroupIcon,
-			},
+			{ href: "/center", active: false, label: "My Centers", children: [], icon: MagnifyingGlassIcon },
+            { href: "/center/course", active: false, label: "Course", children: [], icon: BookOpenIcon },
+            { href: "/center/offer", active: false, label: "Offerings", children: [], icon: TicketIcon },
+            { href: "/center/student", active: false, label: "Students", children: [], icon: UserIcon },
+			{ href: "/center/22/232", active: false, label: "Admin", children: [], icon: RectangleGroupIcon },
 		],
 		icon: BuildingLibraryIcon,
 	},
+    {
+		href: "#", active: false,
+		label: "Exams",
+		children: [
+			{ href: "/results", active: false, label: "Results", children: [], icon: StopIcon },
+            { href: "/quiz", active: false, label: "Quiz", children: [], icon: StopIcon },
+            { href: "/question", active: false, label: "Questions", children: [], icon: StopIcon },
+            { href: "/assesment", active: false, label: "Assesments", children: [], icon: StopIcon },
+		],
+		icon: ClipboardDocumentIcon,
+	},
+    
 ];
 
 
