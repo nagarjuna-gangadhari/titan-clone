@@ -5,10 +5,32 @@ import DataTablesLib from 'datatables.net';
 import 'datatables.net-select';
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5';
-import $ from "jquery";
+import axios from 'axios'
+
+var jk_data = ref([]);
+
+async function get_courses(){
+	await axios.get('/api/v1/course/')
+	.then(function (response) {
+		// handle success
+		console.log(response);
+		jk_data.value = response.data
+	})
+	.catch(function (error) {
+		// handle error
+		console.log(error);
+		return {}
+	})
+}
+
+get_courses()
+
+
+
 
 
 DataTable.use(DataTablesLib);
+
 let dt;
 const table = ref();
 
@@ -37,15 +59,10 @@ const options = {
   select: true,
 };
 
+
 // Get a DataTables API reference
 onMounted(function () {
 	dt = table.value.dt();
-
-    $('#DataTables_Table_0 thead th').each(function () {
-        var title = $(this).text();
-        $(this).html('<input class="border h-6 w-28" type="text" placeholder="Search ' + title + '" />');
-    });
-
 });
 
 function update() {
@@ -62,17 +79,23 @@ function reload(){
 
 
 
+
 </script>
 
 <template>
 	<div class="w-full flex items-center justify-center">
 		<div class="w-9/12 mt-20 text-xs">
-			<button class="p-2 bg-red-400 m-2" @click="update">UPDATE</button><br />
-			<button class="p-2 bg-red-400 m-2" @click="reload">RELOAD</button><br />
+			<div class="hidden">
+				<button class="p-2 bg-red-400 m-2" @click="update">UPDATE</button><br />
+				<button class="p-2 bg-red-400 m-2" @click="reload">RELOAD</button><br />
+			</div>
+			<input type="text" class="column_filter" id="col0_filter">
+
+			
 			<DataTable
-			:columns="columns"
 			:options="options"
-			ajax="/data.json"
+			:data="jk_data"
+			
 			class="display"
 			width="100%"
             ref="table"
@@ -87,7 +110,6 @@ function reload(){
 				<th>Extn.</th>
 				<th>Start date</th>
 				<th>Salary</th>
-				<th>Action</th>
 				</tr>
 			</thead>
 			
@@ -100,4 +122,7 @@ function reload(){
 @import 'datatables.net-dt';
 @import 'datatables.net-buttons-dt';
 @import 'datatables.net-select-dt';
+table.dataTable tbody td {
+	padding: 1px;
+}
 </style>

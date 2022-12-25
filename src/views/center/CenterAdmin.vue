@@ -186,7 +186,7 @@
                 </div>
                 
                 <div>
-                    <Gant2Vue />
+                    <!-- <Gant2Vue /> -->
                 </div>
   
                 
