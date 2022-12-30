@@ -7,7 +7,9 @@ const AUTH_TOKEN = token ? `Bearer ${token.access}` : ''
 
 window.axios = axios
 axios.defaults.baseURL = import.meta.env.VITE_API_URL
-axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+if (AUTH_TOKEN){
+  axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+}
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 

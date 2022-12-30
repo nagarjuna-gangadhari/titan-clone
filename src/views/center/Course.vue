@@ -8,13 +8,30 @@ import 'datatables.net-buttons/js/buttons.html5';
 import axios from 'axios'
 
 var jk_data = ref([]);
+const columns = ['subject', 'grade', 'board', 'language_id', 'status', 'availabilityType'];
 
 async function get_courses(){
 	await axios.get('/api/v1/course/')
 	.then(function (response) {
 		// handle success
 		console.log(response);
-		jk_data.value = response.data
+
+		let data=[];
+
+		for (let i = 0; i < response.data.length; i++){
+			const m = response.data[i]
+			let k = []
+			for (let l = 0; l < columns.length; l++){
+				k.push(m[columns[l]])
+			}
+			k.push(`<a href="course/${m['id']}" >Edit</a>`)
+			data.push(k)
+		}
+
+		console.log(data)
+
+
+		jk_data.value = data
 	})
 	.catch(function (error) {
 		// handle error
@@ -34,25 +51,6 @@ DataTable.use(DataTablesLib);
 let dt;
 const table = ref();
 
-const headers = [
-  { text: 'Name', value: 'name' },
-  { text: 'Position', value: 'position' },
-  { text: 'Office', value: 'office' },
-  { text: 'Extn', value: 'extn' },
-  { text: 'Start Date', value: 'start_date' },
-  { text: 'Salary', value: 'salary' },
-
-
-];
-
-const columns = [
-  { data: 'name' },
-  { data: 'position' },
-  { data: 'office' },
-  { data: 'extn' },
-  { data: 'start_date' },
-  { data: 'salary' },
-];
 
 const options = {
   dom: 'Bftip',
@@ -104,12 +102,9 @@ function reload(){
 			
 			<thead>
 				<tr>
-				<th>Name</th>
-				<th>Position</th>
-				<th>Office</th>
-				<th>Extn.</th>
-				<th>Start date</th>
-				<th>Salary</th>
+					<th v-for="column in columns">{{ column }}</th>
+					<th>Edit</th>
+					
 				</tr>
 			</thead>
 			
