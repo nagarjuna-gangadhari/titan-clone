@@ -49,8 +49,10 @@ function onSubmit(values, { setErrors }) {
     const auth = AUTH();
     const { username, password } = values;
 
-    return auth.login(username, password)
+    err =  auth.login(username, password)
         .catch(error => setErrors({ apiError: error }));
+    auth.user_data()
+    return err
 }
 
 </script>
