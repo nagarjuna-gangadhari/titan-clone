@@ -22,7 +22,7 @@
                     </button>
                 </div>
                 <div class="text-center mt-2">
-                    <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="/signup">Create an Account!</a>
+                    <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="/account/sign-up">Create an Account!</a>
                 </div>
             </Form>
             </div>
@@ -49,10 +49,8 @@ function onSubmit(values, { setErrors }) {
     const auth = AUTH();
     const { username, password } = values;
 
-    err =  auth.login(username, password)
+    return auth.login(username, password)
         .catch(error => setErrors({ apiError: error }));
-    auth.user_data()
-    return err
 }
 
 </script>
