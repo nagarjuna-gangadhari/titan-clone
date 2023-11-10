@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/accounts/Login.vue';
-import { AUTH } from '@/stores'
+import { useAuthStore} from "@/stores";
 
 
 function dynamicHome() {
@@ -13,17 +13,17 @@ export const router = createRouter({
         return { top: 0 ,behavior: 'smooth',}
       },
     routes: [
-      { path: '', name: 'Home', alias: '/home', meta: { requiresAuth: true, authorize: [] }, component: () => import('@/views/Index.vue') },
-      { path: '/account', name: 'acc', meta: { requiresAuth: true, authorize: [] },
+      { path: '', name: 'Home', alias: '/home', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/Index.vue') },
+      { path: '/account', name: 'acc', meta: { requiresAuth: true, roles: [] },
         children: [
-          { path: 'me', name: 'Me', meta: { requiresAuth: true, authorize: [] }, component: () => import('@/views/accounts/Me.vue') },
-          { path: 'login', name: 'Login', meta: { requiresAuth: false }, component: Login, authorize: [] },
-          { path: 'login2', name: 'Login2', meta: { requiresAuth: false }, component: () => import('@/views/accounts/Login2.vue'), authorize: [] },
+          { path: 'me', name: 'Me', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/accounts/Me.vue') },
+          { path: 'login', name: 'Login', meta: { requiresAuth: false }, component: Login, roles: [] },
+          { path: 'login2', name: 'Login2', meta: { requiresAuth: false }, component: () => import('@/views/accounts/Login2.vue'), roles: [] },
           { path: 'sign-up', name: 'Signup', meta: { requiresAuth: false }, component: () => import('@/views/accounts/SignUp.vue') },
-          { path: 'reset-password', name: 'Reset', meta: { requiresAuth: true, authorize: [] }, component: () => import('@/views/accounts/Reset.vue') },
+          { path: 'reset-password', name: 'Reset', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/accounts/Reset.vue') },
           { path: 'logout', name: 'Logout', meta: { requiresAuth: false }, component: Login },
           // custome
-          { path: 'mail', name: 'Mail', meta: { requiresAuth: true, authorize: [] }, component: () => import('@/views/accounts/Mail.vue') },
+          { path: 'mail', name: 'Mail', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/accounts/Mail.vue') },
         ]
       },
 		
@@ -47,19 +47,16 @@ export const router = createRouter({
 
 
 router.beforeEach((to, from) => {
-  const { user } = AUTH();
-  const { authorize } = to.meta;
-  console.log(to.meta.requiresAuth)
-  if (to.meta.requiresAuth && !user.token) {
+  const { user, logout } = useAuthStore();
+  const { roles } = to.meta;
+  if (to.meta.requiresAuth && !user) {
+    console.log('login.........')
       return {path: '/account/login', query: { redirect: to.fullPath },}
   }
-  if (authorize && authorize.length && !authorize.filter(e => user.roles.indexOf(e) !== -1).length) {
+  if (roles && roles.length && !roles.filter(e => user.roles.indexOf(e) !== -1).length) {
     return router.push('/');
   }
-  if (to.path == '/account/logout' && user.token) {
-    const auth = AUTH()
-    auth.logout()
+  if (to.path == '/account/logout') {
+    logout()
   }
 })
-
-

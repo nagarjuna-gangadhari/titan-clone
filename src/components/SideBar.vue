@@ -1,5 +1,5 @@
 <template>
-  <div v-show="user.user.token" class="flex min-h-screen" @mouseenter="general_store.sidebarHover=true" @mouseleave="general_store.sidebarHover=false">
+  <div v-show="authstore.user" class="flex min-h-screen" @mouseenter="general_store.sidebarHover=true" @mouseleave="general_store.sidebarHover=false">
     <TransitionRoot :show="general_store.sidebarOpened" >
         <Dialog as="div" @close="general_store.sidebarOpened = false" class="fixed inset-0 z-[9999] md:hidden">
             <TransitionChild
@@ -64,12 +64,14 @@ import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, Buildi
 import Logo from "./Logo.vue";
 import NavItem from "./NavItem.vue";
 import SearchCenterMOdel from "../components/center/SearchCenterModel.vue"
-import { GeneralStore, AUTH } from '@/stores';
+import { GeneralStore, useAuthStore } from '@/stores';
 import { useToast } from 'vue-toastification';
 import { useEvents } from '../services/events';
 import { EnvelopeOpenIcon } from '@heroicons/vue/24/solid';
 
 const event = useEvents()
+const general_store = GeneralStore()
+const authstore = useAuthStore();
 
 const navItems = [
 	{ href: "/", active: false, label: "Home", children: [], icon: HomeIcon },
@@ -112,10 +114,6 @@ const navItems = [
 	},
     
 ];
-
-
-const general_store = GeneralStore()
-const user = AUTH()
 
 
 

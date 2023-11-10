@@ -35,8 +35,7 @@
 <script setup>
 import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
-
-import { AUTH } from '@/stores'
+import { useAuthStore} from "@/stores";
 
 const title = import.meta.env.VITE_APP_TITLE;
 
@@ -46,10 +45,10 @@ const schema = Yup.object().shape({
 });
 
 function onSubmit(values, { setErrors }) {
-    const auth = AUTH();
+    const { login } = useAuthStore();
     const { username, password } = values;
 
-    return auth.login(username, password)
+    return login(username, password)
         .catch(error => setErrors({ apiError: error }));
 }
 

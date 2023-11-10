@@ -83,10 +83,9 @@ import {
   Bars3BottomLeftIcon,
   AcademicCapIcon,
 } from "@heroicons/vue/24/solid/index.js";
-import { GeneralStore, AUTH } from "@/stores";
+import { GeneralStore } from "@/stores";
 
 const general_store = GeneralStore();
-const user = AUTH();
 
 const title = import.meta.env.VITE_APP_TITLE;
 

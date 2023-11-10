@@ -1,20 +1,15 @@
 
 
 <script setup>
-    import axios from 'axios';
-    const title = import.meta.env.VITE_APP_TITLE;
-    axios.get('/api/v1/profile/', {}).then(function (response) {
-                    console.log(response);
-                })
-
-
+import { useAuthStore} from "@/stores";
+const { user } = useAuthStore();
 </script>
 
 
 <template>
     <div class="bg-gray-100">
   
-      <div class="container mx-auto my-5 p-5">
+      <div class="container mx-auto my-5 p-5 text-xs">
           <div class="md:flex md:-mx-2 ">
               <!-- Left Side -->
               <div class="w-full md:w-4/12 md:mx-2">
@@ -34,9 +29,9 @@
                         <div class="flex items-center justify-between sm:mt-2">
                           <div class="flex items-center">
                             <div class="flex flex-col">
-                              <div class="w-full flex-none text-lg text-gray-200 font-bold leading-none">Arjun</div>
+                              <div class="w-full flex-none text-sm text-red-700 font-bold leading-none">{{ user.username }}</div>
                               <div class="flex-auto text-gray-400 my-1">
-                                <span class="mr-3 ">Technician</span><span class="mr-3 border-r border-gray-600  max-h-0"></span><span>Bengaluru, IND</span>
+                                <span class="mr-3 ">{{ user.email }}</span>
                               </div>
                             </div>
                           </div>
