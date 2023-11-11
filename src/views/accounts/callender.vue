@@ -11,7 +11,7 @@ h6 {
   -webkit-font-smoothing: antialiased;
 }
 
-p,
+/* p,
 span,
 ul,
 li {
@@ -19,7 +19,7 @@ li {
   font-weight: 100;
   -webkit-font-smoothing: subpixel-antialiased;
   font-size: 1rem;
-}
+} */
 
 .calendar-contain {
   position: relative;

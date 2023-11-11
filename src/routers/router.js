@@ -42,6 +42,7 @@ export const router = createRouter({
     },
     {path: '/', name: 'Help', meta: { requiresAuth: true }, component: () => import('@/views/aux/help.vue')},
     {path: '/403', name: '403', meta: { requiresAuth: true }, component: () => import('@/views/aux/403.vue')},
+    {path: '/404', name: '404', meta: { requiresAuth: true }, component: () => import('@/views/aux/404.vue')},
       
 
 
