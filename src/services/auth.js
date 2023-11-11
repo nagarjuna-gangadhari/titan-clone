@@ -24,6 +24,7 @@ export const authService = {
       try {
         const response = await axios.get('/api/v1/profile/', {});
         if (response){
+          console.log(response)
           return response.data;
         }
       } catch (error) {

@@ -60,7 +60,7 @@
 <script setup>
 import {Dialog, DialogOverlay, TransitionChild, TransitionRoot} from '@headlessui/vue';
 import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, BuildingLibraryIcon, UserIcon, ArrowPathIcon, RectangleGroupIcon, EnvelopeIcon,
-        BookOpenIcon, TicketIcon, ClipboardDocumentIcon, StopIcon } from '@heroicons/vue/24/outline/index.js';
+        BookOpenIcon, TicketIcon, ClipboardDocumentIcon, StopIcon, CalendarIcon } from '@heroicons/vue/24/outline/index.js';
 import Logo from "./Logo.vue";
 import NavItem from "./NavItem.vue";
 import SearchCenterMOdel from "../components/center/SearchCenterModel.vue"
@@ -82,6 +82,7 @@ const navItems = [
 		children: [
 			{ href: "/account/me", active: false, label: "Me", children: [], icon: UserIcon },
             { href: "/account/mail", active: false, label: "Mail", children: [], icon: EnvelopeOpenIcon },
+            { href: "/account/callender", active: false, label: "Callender", children: [], icon: CalendarIcon },
 			{ href: "/account/reset-password", active: false, label: "Reset Password", children: [], icon: ArrowPathIcon },
             
 		],
@@ -92,11 +93,12 @@ const navItems = [
 		label: "Center",
         icon: BuildingLibraryIcon,
 		children: [
-			{ href: "/center", active: false, label: "My Centers", children: [], icon: MagnifyingGlassIcon },
+			{ href: "/center/all", active: false, label: "My Centers", children: [], icon: MagnifyingGlassIcon },
+            { href: "/center/admin", active: false, label: "Admin", children: [], icon: RectangleGroupIcon },
             { href: "/center/course", active: false, label: "Course", children: [], icon: BookOpenIcon },
             { href: "/center/offer", active: false, label: "Offerings", children: [], icon: TicketIcon },
             { href: "/center/student", active: false, label: "Students", children: [], icon: UserIcon },
-			{ href: "/center/1", active: false, label: "Admin", children: [], icon: RectangleGroupIcon },
+			
 		],
 		
 	},
