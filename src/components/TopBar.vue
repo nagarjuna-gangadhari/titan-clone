@@ -16,7 +16,7 @@
     </div>
     
     <Menu  as="div" class="relative flex-shrink-0">
-      <MenuButton 
+      <MenuButton v-if="user"
         class="rounded-ful focus:scale-105"
       >
         <img
@@ -83,8 +83,9 @@ import {
   Bars3BottomLeftIcon,
   AcademicCapIcon,
 } from "@heroicons/vue/24/solid/index.js";
+import { useAuthStore } from "@/stores";
 import { GeneralStore } from "@/stores";
-
+const { user } = useAuthStore();
 const general_store = GeneralStore();
 
 const title = import.meta.env.VITE_APP_TITLE;

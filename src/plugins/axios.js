@@ -3,7 +3,7 @@ import { useAuthStore } from '@/stores/auth.store';
 
 
 window.axios = axios
-axios.defaults.baseURL = import.meta.env.VITE_API_URL
+axios.defaults.baseURL = 'http://' + import.meta.env.VITE_API_URL
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 

@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { router } from '@/routers';
 import { authService } from '@/services'
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 export const useAuthStore = defineStore('AUTH', {
   state: () => ({
@@ -18,27 +20,17 @@ export const useAuthStore = defineStore('AUTH', {
 
   getters: {
     user(){
-      let access_ = this.access || null;
       let call_user_data = false;
 
-      if (!access_ && localStorage.getItem('token')) {
+      if (!this.access && localStorage.getItem('access') && localStorage.getItem('refresh')) {
         console.log('local token...');
-        try {
-          const local_token = JSON.parse(localStorage.getItem('token'));
-          this.refresh = local_token.refresh;
-          access_ = local_token.access || null;
-          call_user_data = true;
-
-        } catch (err) {
-          this.logout()
-          return null;
-        }
+        this.refresh = localStorage.getItem('refresh');
+        this.access = localStorage.getItem('access');
+        call_user_data = true;
       }
-
-      if (access_) {
-        const access_data = authService.parseJwt(access_);
+      if (this.access) {
+        const access_data = authService.parseJwt(this.access);
         if (access_data) {
-          this.access = access_;
           if (+new Date <= access_data.exp){
             console.log('token expaired');
             this.logout();
@@ -47,7 +39,6 @@ export const useAuthStore = defineStore('AUTH', {
           if(call_user_data){
             this.update_user();
           }
-          
           return this.user_data;
         }
       }
@@ -59,8 +50,8 @@ export const useAuthStore = defineStore('AUTH', {
   actions: {
     async login(username, password) {
       const response = await authService.login(username, password);
-      console.log('login success...')
       if (response) {
+        toast('login success...')
         this.access = response.access;
         this.refresh = response.refresh;
         this.token = response;
@@ -73,7 +64,6 @@ export const useAuthStore = defineStore('AUTH', {
       return response;
     },
     logout() {
-      console.log('user logged out...')
       this.token=null;
       this.access=null;
       this.refresh=null;

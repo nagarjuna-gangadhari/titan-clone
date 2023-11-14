@@ -28,7 +28,7 @@ export const router = createRouter({
         ]
       },
 		
-    
+      { path: '/query', name: 'Query', alias: '/query', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/query/create.vue') },
     // center
       { path: '/center', name: 'Center', meta: { requiresAuth: true },
         children: [
@@ -40,7 +40,7 @@ export const router = createRouter({
         ]
 
     },
-    {path: '/', name: 'Help', meta: { requiresAuth: true }, component: () => import('@/views/aux/help.vue')},
+    {path: '/help', name: 'Help', meta: { requiresAuth: true }, component: () => import('@/views/aux/help.vue')},
     {path: '/403', name: '403', meta: { requiresAuth: true }, component: () => import('@/views/aux/403.vue')},
     {path: '/404', name: '404', meta: { requiresAuth: true }, component: () => import('@/views/aux/404.vue')},
       

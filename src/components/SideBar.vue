@@ -60,7 +60,7 @@
 <script setup>
 import {Dialog, DialogOverlay, TransitionChild, TransitionRoot} from '@headlessui/vue';
 import {MagnifyingGlassIcon, HomeIcon, BackspaceIcon, IdentificationIcon, BuildingLibraryIcon, UserIcon, ArrowPathIcon, RectangleGroupIcon, EnvelopeIcon,
-        BookOpenIcon, TicketIcon, ClipboardDocumentIcon, StopIcon, CalendarIcon } from '@heroicons/vue/24/outline/index.js';
+        BookOpenIcon, TicketIcon, ClipboardDocumentIcon, StopIcon, CalendarIcon, HandRaisedIcon, PlusCircleIcon } from '@heroicons/vue/24/outline/index.js';
 import Logo from "./Logo.vue";
 import NavItem from "./NavItem.vue";
 import SearchCenterMOdel from "../components/center/SearchCenterModel.vue"
@@ -111,6 +111,16 @@ const navItems = [
             { href: "/quiz", active: false, label: "Quiz", children: [], icon: StopIcon },
             { href: "/question", active: false, label: "Questions", children: [], icon: StopIcon },
             { href: "/assesment", active: false, label: "Assesments", children: [], icon: StopIcon },
+		],
+		
+	},
+    {
+		href: "#", active: false,
+		label: "Query",
+        icon: HandRaisedIcon,
+		children: [
+			{ href: "/query", active: false, label: "add_query", children: [], icon: PlusCircleIcon },
+            
 		],
 		
 	},
