@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('AUTH', {
   }),
 
   getters: {
-    user(){
+    user() {
       let call_user_data = false;
 
       if (!this.access && localStorage.getItem('access') && localStorage.getItem('refresh')) {
@@ -31,12 +31,12 @@ export const useAuthStore = defineStore('AUTH', {
       if (this.access) {
         const access_data = authService.parseJwt(this.access);
         if (access_data) {
-          if (+new Date <= access_data.exp){
+          if (+new Date <= access_data.exp) {
             console.log('token expaired');
-            this.logout();
+            this.refresh();
             return null;
           }
-          if(call_user_data){
+          if (call_user_data) {
             this.update_user();
           }
           return this.user_data;
@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('AUTH', {
     async login(username, password) {
       const response = await authService.login(username, password);
       if (response) {
-        toast('login success...')
+        toast.success('login success...', )
         this.access = response.access;
         this.refresh = response.refresh;
         this.token = response;
@@ -64,29 +64,40 @@ export const useAuthStore = defineStore('AUTH', {
       return response;
     },
     logout() {
-      this.token=null;
-      this.access=null;
-      this.refresh=null;
+      this.token = null;
+      this.access = null;
+      this.refresh = null;
       localStorage.removeItem('token');
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
       this.returnUrl = '/'
-      router.push('/login');
+      // router.push('/login');
     },
     async refreshToken() {
-      const newAccess = await authService.refreshToken(this.refresh);
-      if (newAccess) {
-        this.access = newAccess;
-        localStorage.setItem('access', newAccess);
+      if (this.access) {
+        const newAccess = await authService.refreshToken(this.refresh);
+        if (newAccess) {
+          this.access = newAccess;
+          localStorage.setItem('access', newAccess);
+          this.update_user()
+        } else {
+          this.logout();
+        }
       } else {
         this.logout();
       }
+
+
     },
-    async update_user(){
+    async update_user() {
       const k = await authService.user_data()
-      this.user_data.username = k.username
-      this.user_data.email = k.email
-      this.user_data.roles = k.groups
+      if (k) {
+        this.user_data.username = k.username
+        this.user_data.email = k.email
+        this.user_data.roles = k.groups
+      }else {
+        this.logout();
+      }
     }
 
     // Other actions remain unchanged

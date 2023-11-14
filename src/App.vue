@@ -12,9 +12,12 @@
   notificationSocket.onmessage = function (e) {
       const data = JSON.parse(e.data);
       const message = data['message'];
-      console.log(message)
-      toast(message)
-      return message
+      if(message){
+        console.log(message)
+        toast(message)
+        return message
+      }
+      
       // Handle incoming message
   };
   notificationSocket.onclose = function (e) {

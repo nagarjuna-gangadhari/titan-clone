@@ -14,13 +14,13 @@ export const router = createRouter({
       },
     routes: [
       { path: '', name: 'Home', alias: '/home', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/Home.vue') },
-      { path: '/account', name: 'acc', meta: { requiresAuth: true, roles: [] },
+      { path: '/account', name: 'acc',
         children: [
           { path: 'me', name: 'Me', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/accounts/Me.vue') },
-          { path: 'login', name: 'Login', meta: { requiresAuth: false }, component: Login, roles: [] },
-          { path: 'login2', name: 'Login2', meta: { requiresAuth: false }, component: () => import('@/views/accounts/Login2.vue'), roles: [] },
-          { path: 'sign-up', name: 'Signup', meta: { requiresAuth: false }, component: () => import('@/views/accounts/SignUp.vue') },
-          { path: 'reset-password', name: 'Reset', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/accounts/Reset.vue') },
+          { path: 'login', name: 'Login', meta: { requiresAuth: false }, component: Login},
+          { path: 'login2', name: 'Login2', meta: { requiresAuth: false, roles: [] }, component: () => import('@/views/accounts/Login2.vue')},
+          { path: 'sign-up', name: 'Signup', meta: { requiresAuth: false, roles: [] }, component: () => import('@/views/accounts/SignUp.vue') },
+          { path: 'reset-password', name: 'Reset', meta: { requiresAuth: false, roles: [] }, component: () => import('@/views/accounts/Reset.vue') },
           { path: 'logout', name: 'Logout', meta: { requiresAuth: false }, component: Login },
           // custome
           {path: 'callender', name: 'Callender', meta: { requiresAuth: true }, component: () => import('@/views/accounts/callender.vue')},
@@ -55,9 +55,10 @@ export const router = createRouter({
 
 router.beforeEach((to, from) => {
   const { user, logout } = useAuthStore();
-  const { roles } = to.meta;
-  if (to.meta.requiresAuth && !user) {
-    console.log('login.........')
+  const { roles, requiresAuth } = to.meta;
+  console.log(to.path)
+  console.log(requiresAuth)
+  if (requiresAuth && !user) {
       return {path: '/account/login', query: { redirect: to.fullPath },}
   }
   if (roles && roles.length && !roles.filter(e => user.roles.indexOf(e) !== -1).length) {

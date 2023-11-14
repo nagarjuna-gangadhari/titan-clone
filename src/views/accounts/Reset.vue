@@ -41,7 +41,7 @@
                         <div class="text-center">
                             <a
                                 class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                href="/signup"
+                                href="/account/sign-up"
                             >
                                 Create an Account!
                             </a>

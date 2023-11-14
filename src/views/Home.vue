@@ -1,19 +1,17 @@
 
 
 <script setup>
+import { ref } from 'vue'
 import { useAuthStore } from "@/stores";
 const { user } = useAuthStore();
-
+var active_tab = ref(1)
+var myDate = new Date();
 </script>
+
 <style>
 
-p {
-    padding: 0;
-    margin: 0;
-}
-
 #container {
-    width: 1000px;
+    width: 2400px;
     height: 575px;
     margin-top: 45px;
     border-radius: 5px;
@@ -34,83 +32,15 @@ p {
     background-color: white;
 }
 
-
-#menu {
-    width: 290px;
-    margin-left: 115px;
-}
-
-#menu ul {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    height: 50px;
-    width: 270px;
-    position: relative;
-}
-
-#menu ul:after {
-    position: absolute;
-    content: "";
-    height: 2px;
-    background: #FFA800;
-    bottom: -2px;
-    border-radius: 10px;
-    left: 234px;
-    width: 14%;
-    -webkit-transition: all 250ms ease;
-    -moz-transition: all 250ms ease;
-    -ms-transition: all 250ms ease;
-    -o-transition: all 250ms ease;
-    transition: all 250ms ease;
-}
-
-#menu ul.l1:after {
-    left: 0px;
-    width: 12%;
-}
-
-#menu ul.l2:after {
-    left: 68px;
-    width: 18%;
-}
-
-#menu ul.l3:after {
-    left: 152px;
-    width: 18%;
-}
-
-#menu ul li {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+#menu{
     font-family: "Nunito", sans-serif;
-    font-weight: 900;
-    font-size: 11px;
-    color: #CFD1D2;
-    position: relative;
-    height: 50px;
-    -webkit-transition: all 100ms ease;
-    -moz-transition: all 100ms ease;
-    -ms-transition: all 100ms ease;
-    -o-transition: all 100ms ease;
-    transition: all 100ms ease;
+    font-weight: 700;
+    font-size: 13px;
+    color: #6c7073;
 }
 
-#menu ul li.active {
-    color: #2d2d2d;
-}
+
+
 
 #account {
     display: -webkit-box;
@@ -151,66 +81,6 @@ p {
     margin-left: 7px;
 }
 
-
-
-#wrapper {
-    overflow: hidden;
-    width: 100%;
-}
-
-#content {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 3360px;
-    -moz-transform: translateX(-2595px);
-    -webkit-transform: translateX(-2595px);
-    -o-transform: translateX(-2595px);
-    -ms-transform: translateX(-2595px);
-    transform: translateX(-2595px);
-    -webkit-transition: all 500ms ease;
-    -moz-transition: all 500ms ease;
-    -ms-transition: all 500ms ease;
-    -o-transition: all 500ms ease;
-    transition: all 500ms ease;
-}
-
-#content.m1 {
-    -moz-transform: translateX(0);
-    -webkit-transform: translateX(0);
-    -o-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-}
-
-#content.m2 {
-    -moz-transform: translateX(-865px);
-    -webkit-transform: translateX(-865px);
-    -o-transform: translateX(-865px);
-    -ms-transform: translateX(-865px);
-    transform: translateX(-865px);
-}
-
-#content.m3 {
-    -moz-transform: translateX(-1730px);
-    -webkit-transform: translateX(-1730px);
-    -o-transform: translateX(-1730px);
-    -ms-transform: translateX(-1730px);
-    transform: translateX(-1730px);
-}
-
-#content.m4 {
-    -moz-transform: translateX(-2595px);
-    -webkit-transform: translateX(-2595px);
-    -o-transform: translateX(-2595px);
-    -ms-transform: translateX(-2595px);
-    transform: translateX(-2595px);
-}
-
 #page1 {
     display: -webkit-box;
     display: -moz-box;
@@ -218,7 +88,7 @@ p {
     display: -webkit-flex;
     display: flex;
     flex-direction: column;
-    width: 765px;
+    width: 1000px;
     height: auto;
     margin-top: 40px;
 }
@@ -230,7 +100,7 @@ p {
     display: -webkit-flex;
     display: flex;
     flex-direction: column;
-    width: 765px;
+    width: 1000px;
     height: auto;
     margin-top: 40px;
 }
@@ -242,7 +112,7 @@ p {
     display: -webkit-flex;
     display: flex;
     flex-direction: column;
-    width: 765px;
+    width: 1000px;
     height: auto;
     margin-top: 40px;
 }
@@ -256,7 +126,7 @@ p {
     flex-direction: column;
     overflow: hidden;
     margin-top: 40px;
-    width: 765px;
+    width: 1000px;
     height: 78%;
 }
 
@@ -267,7 +137,7 @@ p {
     display: -webkit-flex;
     display: flex;
     justify-content: flex-start;
-    width: 765px;
+    width: 1000px;
     height: 370px;
     padding: 0 12px;
     box-sizing: border-box;
@@ -513,7 +383,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    width: 765px;
+    width: 1000px;
     height: 50px;
     padding: 0 12px;
     box-sizing: border-box;
@@ -551,7 +421,7 @@ p {
     display: -webkit-flex;
     display: flex;
     justify-content: space-around;
-    width: 765px;
+    width: 1000px;
 }
 
 .cardEvent {
@@ -610,7 +480,7 @@ p {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 765px;
+    width: 1000px;
     margin-top: 40px;
     padding-bottom: 40px;
 }
@@ -911,227 +781,220 @@ p {
 }
 </style>
 
-
 <template>
     <div >
-            <div id="header">
-                <div id="menu">
-                    <ul>
-                        <li id="today">Today</li>
-                        <li id="planning">Planning</li>
-                        <li id="contacts">Contacts</li>
-                        <li class="active" id="events">Events</li>
-                    </ul>
+        <div id="menu" class="flex items-center justify-center space-x-8 p-8 font-['Nunito', 'Open_Sans']">
+            <div @click="active_tab=1" class="cursor-pointer" :class="{'border-b-2 border-[#FFA800]': active_tab==1 }">Today</div>
+            <div @click="active_tab=2" class="cursor-pointer" :class="{'border-b-2 border-[#FFA800]': active_tab==2 }">Planning</div>
+            <div @click="active_tab=3" class="cursor-pointer" :class="{'border-b-2 border-[#FFA800]': active_tab==3 }">Contacts</div>
+            <div @click="active_tab=4" class="cursor-pointer" :class="{'border-b-2 border-[#FFA800]': active_tab==4 }">Events</div>
+        </div>
+        <div id="wrapper">
+            <div class="ml-20">
+                <div v-if="active_tab==1" id="page1" class="transition duration-150 ease-out">
+                    <div class="line1">
+                        <p>Today</p>
+                    </div>
+                    <div class="pageContent">
+                        <div class="leftContent"></div>
+                        <div class="rightContent">
+                            <div id="row1"></div>
+                            <div id="row2"></div>
+                            <div id="row3"></div>
+                            <div id="row4"></div>
+                            <div id="row5"></div>
+                            <div id="row6"></div>
+                            <div id="row7"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="">
-                <div id="wrapper">
-                    <div id="content">
-                        <div id="page1">
-                            <div class="line1">
-                                <p>Today</p>
-                            </div>
-                            <div class="pageContent">
-                                <div class="leftContent"></div>
-                                <div class="rightContent">
-                                    <div id="row1"></div>
-                                    <div id="row2"></div>
-                                    <div id="row3"></div>
-                                    <div id="row4"></div>
-                                    <div id="row5"></div>
-                                    <div id="row6"></div>
-                                    <div id="row7"></div>
-                                </div>
+                <div v-if="active_tab==2" id="page2" class="transition duration-150 ease-out">
+                    <div class="line1">
+                        <p>Planning</p>
+                    </div>
+                    <div class="pageContent" id="wrap">
+                        <div id="box1"></div>
+                        <div id="box2"></div>
+                        <div id="box3"></div>
+                        <div id="box4"></div>
+                        <div id="box5"></div>
+                        <div id="box6"></div>
+                        <div id="box7"></div>
+                        <div id="box8"></div>
+                        <div id="box9"></div>
+                        <div id="box10"></div>
+                        <div id="box11"></div>
+                        <div id="box12"></div>
+                        <div id="box13"></div>
+                        <div id="box14"></div>
+                        <div id="box15"></div>
+                    </div>
+                </div>
+                <div v-if="active_tab==3" id="page3" class="transition duration-150 ease-out">
+                    <div class="line1">
+                        <p>Contacts</p>
+                    </div>
+                    <div class="pageContent" id="spaceBetween">
+                        <div class="topContent">
+                            <div class="person"></div>
+                            <div class="person"></div>
+                            <div class="person"></div>
+                            <div class="person"></div>
+                        </div>
+                        <div class="bottomContent">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="active_tab==4" id="page4" class="transition duration-150 ease-out">
+                    <div class="line1">
+                        <p>Popular Events</p>
+                        <div id="time">
+                            <p>This Month</p>
+                            <div class="arrowWrapper" id="timeArrow">
+                                <svg class="arrow" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                    viewBox="0 0 451.847 451.847">
+                                    <path
+                                        d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751 c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0 c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z">
+                                    </path>
+                                </svg>
                             </div>
                         </div>
-                        <div id="page2">
-                            <div class="line1">
-                                <p>Planning</p>
+                    </div>
+                    <div class="line2">
+                        <div class="cardEvent">
+                            <div class="circle" id="red"></div>
+                            <p>Designer's Events</p>
+                            <p>22 Events</p>
+                        </div>
+                        <div class="cardEvent">
+                            <div class="circle" id="blue"></div>
+                            <p>Corporate Events</p>
+                            <p>46 Events</p>
+                        </div>
+                        <div class="cardEvent">
+                            <div class="circle" id="green"></div>
+                            <p>Tech Events</p>
+                            <p>30 Events</p>
+                        </div>
+                        <div class="cardEvent">
+                            <div class="circle" id="orange"></div>
+                            <p>Entertainment Events</p>
+                            <p>88 Events</p>
+                        </div>
+                    </div>
+                    <div class="line3">
+                        <div class="cardSpecific">
+                            <div class="date">
+                                <div class="left">12</div>
+                                <div class="right">
+                                    <p>saturday</p>
+                                    <p>december 2018</p>
+                                </div>
                             </div>
-                            <div class="pageContent" id="wrap">
-                                <div id="box1"></div>
-                                <div id="box2"></div>
-                                <div id="box3"></div>
-                                <div id="box4"></div>
-                                <div id="box5"></div>
-                                <div id="box6"></div>
-                                <div id="box7"></div>
-                                <div id="box8"></div>
-                                <div id="box9"></div>
-                                <div id="box10"></div>
-                                <div id="box11"></div>
-                                <div id="box12"></div>
-                                <div id="box13"></div>
-                                <div id="box14"></div>
-                                <div id="box15"></div>
+                            <div class="bottom">
+                                <div class="desc">
+                                    <p>Dribbble Meetup</p>
+                                    <p>Starts at 6:30 P.M.</p>
+                                </div>
+                                <div class="attendees">
+                                    <div class="pic" id="a1"></div>
+                                    <div class="pic" id="a2"></div>
+                                    <div class="pic" id="a3"></div>
+                                    <div class="pic" id="a4"></div>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <p>Meetups</p>
+                                <p>Dribbble Meetups are a chance for designers to socialize, talk shop, and foster
+                                    their local design communities.</p>
                             </div>
                         </div>
-                        <div id="page3">
-                            <div class="line1">
-                                <p>Contacts</p>
+                        <div class="cardSpecific">
+                            <div class="date">
+                                <div class="left">15</div>
+                                <div class="right">
+                                    <p>tuesday</p>
+                                    <p>december 2018</p>
+                                </div>
                             </div>
-                            <div class="pageContent" id="spaceBetween">
-                                <div class="topContent">
-                                    <div class="person"></div>
-                                    <div class="person"></div>
-                                    <div class="person"></div>
-                                    <div class="person"></div>
+                            <div class="bottom">
+                                <div class="desc">
+                                    <p>Mercedes Benz Fashion Week 17-18</p>
+                                    <p>Starts at 8:30 P.M.</p>
                                 </div>
-                                <div class="bottomContent">
-                                    <div class="row"></div>
-                                    <div class="row"></div>
-                                    <div class="row"></div>
-                                    <div class="row"></div>
+                                <div class="attendees">
+                                    <div class="pic" id="a5"></div>
+                                    <div class="pic" id="a6"></div>
+                                    <div class="pic" id="a7"></div>
+                                    <div class="pic" id="a8"></div>
                                 </div>
+                            </div>
+                            <div class="back">
+                                <p>Fashion Week</p>
+                                <p>Mercedes-Benz Fashion Week was a series of international fashion weeks sponsored
+                                    by Mercedes-Benz and produced by IMG.</p>
                             </div>
                         </div>
-                        <div id="page4">
-                            <div class="line1">
-                                <p>Popular Events</p>
-                                <div id="time">
-                                    <p>This month</p>
-                                    <div class="arrowWrapper" id="timeArrow">
-                                        <svg class="arrow" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                            viewBox="0 0 451.847 451.847">
-                                            <path
-                                                d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751 c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0 c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z">
-                                            </path>
-                                        </svg>
-                                    </div>
+                        <div class="cardSpecific">
+                            <div class="date">
+                                <div class="left">18</div>
+                                <div class="right">
+                                    <p>friday</p>
+                                    <p>december 2018</p>
                                 </div>
                             </div>
-                            <div class="line2">
-                                <div class="cardEvent">
-                                    <div class="circle" id="red"></div>
-                                    <p>Designer's Events</p>
-                                    <p>22 Events</p>
+                            <div class="bottom">
+                                <div class="desc">
+                                    <p>Apple Special Keynote</p>
+                                    <p>Starts at 9:30 A.M.</p>
                                 </div>
-                                <div class="cardEvent">
-                                    <div class="circle" id="blue"></div>
-                                    <p>Corporate Events</p>
-                                    <p>46 Events</p>
-                                </div>
-                                <div class="cardEvent">
-                                    <div class="circle" id="green"></div>
-                                    <p>Tech Events</p>
-                                    <p>30 Events</p>
-                                </div>
-                                <div class="cardEvent">
-                                    <div class="circle" id="orange"></div>
-                                    <p>Entertainment Events</p>
-                                    <p>88 Events</p>
+                                <div class="attendees">
+                                    <div class="pic" id="a9"></div>
+                                    <div class="pic" id="a10"></div>
+                                    <div class="pic" id="a11"></div>
+                                    <div class="pic" id="a12"></div>
                                 </div>
                             </div>
-                            <div class="line3">
-                                <div class="cardSpecific">
-                                    <div class="date">
-                                        <div class="left">12</div>
-                                        <div class="right">
-                                            <p>saturday</p>
-                                            <p>december 2018</p>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="desc">
-                                            <p>Dribbble Meetup</p>
-                                            <p>Starts at 6:30 P.M.</p>
-                                        </div>
-                                        <div class="attendees">
-                                            <div class="pic" id="a1"></div>
-                                            <div class="pic" id="a2"></div>
-                                            <div class="pic" id="a3"></div>
-                                            <div class="pic" id="a4"></div>
-                                        </div>
-                                    </div>
-                                    <div class="back">
-                                        <p>Meetups</p>
-                                        <p>Dribbble Meetups are a chance for designers to socialize, talk shop, and foster
-                                            their local design communities.</p>
-                                    </div>
+                            <div class="back">
+                                <p>Apple Special Event</p>
+                                <p>Announcements included a new generation of iPhone, Apple Watch with cellular
+                                    connectivity, Apple TV 4K, and much more.</p>
+                            </div>
+                        </div>
+                        <div class="cardSpecific">
+                            <div class="date">
+                                <div class="left">21</div>
+                                <div class="right">
+                                    <p>monday</p>
+                                    <p>december 2018</p>
                                 </div>
-                                <div class="cardSpecific">
-                                    <div class="date">
-                                        <div class="left">15</div>
-                                        <div class="right">
-                                            <p>tuesday</p>
-                                            <p>december 2018</p>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="desc">
-                                            <p>Mercedes Benz Fashion Week 17-18</p>
-                                            <p>Starts at 8:30 P.M.</p>
-                                        </div>
-                                        <div class="attendees">
-                                            <div class="pic" id="a5"></div>
-                                            <div class="pic" id="a6"></div>
-                                            <div class="pic" id="a7"></div>
-                                            <div class="pic" id="a8"></div>
-                                        </div>
-                                    </div>
-                                    <div class="back">
-                                        <p>Fashion Week</p>
-                                        <p>Mercedes-Benz Fashion Week was a series of international fashion weeks sponsored
-                                            by Mercedes-Benz and produced by IMG.</p>
-                                    </div>
+                            </div>
+                            <div class="bottom">
+                                <div class="desc">
+                                    <p>Dribbble Meetup</p>
+                                    <p>Starts at 6:30 P.M.</p>
                                 </div>
-                                <div class="cardSpecific">
-                                    <div class="date">
-                                        <div class="left">18</div>
-                                        <div class="right">
-                                            <p>friday</p>
-                                            <p>december 2018</p>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="desc">
-                                            <p>Apple Special Keynote</p>
-                                            <p>Starts at 9:30 A.M.</p>
-                                        </div>
-                                        <div class="attendees">
-                                            <div class="pic" id="a9"></div>
-                                            <div class="pic" id="a10"></div>
-                                            <div class="pic" id="a11"></div>
-                                            <div class="pic" id="a12"></div>
-                                        </div>
-                                    </div>
-                                    <div class="back">
-                                        <p>Apple Special Event</p>
-                                        <p>Announcements included a new generation of iPhone, Apple Watch with cellular
-                                            connectivity, Apple TV 4K, and much more.</p>
-                                    </div>
+                                <div class="attendees">
+                                    <div class="pic" id="a13"></div>
+                                    <div class="pic" id="a14"></div>
+                                    <div class="pic" id="a15"></div>
+                                    <div class="pic" id="a16"></div>
                                 </div>
-                                <div class="cardSpecific">
-                                    <div class="date">
-                                        <div class="left">21</div>
-                                        <div class="right">
-                                            <p>monday</p>
-                                            <p>december 2018</p>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="desc">
-                                            <p>Dribbble Meetup</p>
-                                            <p>Starts at 6:30 P.M.</p>
-                                        </div>
-                                        <div class="attendees">
-                                            <div class="pic" id="a13"></div>
-                                            <div class="pic" id="a14"></div>
-                                            <div class="pic" id="a15"></div>
-                                            <div class="pic" id="a16"></div>
-                                        </div>
-                                    </div>
-                                    <div class="back">
-                                        <p>Meetups</p>
-                                        <p>Dribbble Meetups are a chance for designers to socialize, talk shop, and foster
-                                            their local design communities.</p>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="back">
+                                <p>Meetups</p>
+                                <p>Dribbble Meetups are a chance for designers to socialize, talk shop, and foster
+                                    their local design communities.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </template>
+</template>
