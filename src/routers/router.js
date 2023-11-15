@@ -57,8 +57,6 @@ export const router = createRouter({
 router.beforeEach((to, from) => {
   const { user, logout } = useAuthStore();
   const { roles, requiresAuth } = to.meta;
-  console.log(to.path)
-  console.log(requiresAuth)
   if (requiresAuth && !user) {
       return {path: '/account/login', query: { redirect: to.fullPath },}
   }
@@ -69,3 +67,6 @@ router.beforeEach((to, from) => {
     logout()
   }
 })
+
+
+

@@ -2,7 +2,7 @@
   <div id="topbar" 
     class="sticky top-0 min-h-8 h-8 backdrop-opacity-10 backdrop-invert bg-white/80 shadow-2xl flex items-center justify-between px-3 md:px-2 space-x-3 md:space-x-6 border-b"
   >
-    <div class="flex items-center flex-1">
+    <div class="flex items-center flex-1 space-x-1">
       <button
         @click="general_store.sidebarOpened = true"
         class="mr-3 md:hidden flex-none flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full text-red-600 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600"
@@ -12,7 +12,9 @@
         <Bars3BottomLeftIcon class="h-5 w-5" />
       </button>
       <AcademicCapIcon class="w-6 h-6 bg-green-500 rounded-full" />
-      <div class="pl-1 text-xs font-bold">{{title}}</div>
+      <div class="text-xs font-bold font-sans">{{title}}</div>
+      <p class="">|</p>
+      <p v-text="path"></p>
     </div>
     <Listbox v-model="general_store.selectedfontFamily">
       <div class="relative mt-1">
@@ -147,7 +149,7 @@ import {
 import { useAuthStore } from "@/stores";
 import { GeneralStore } from "@/stores";
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
-
+import { router } from "@/routers/index"
 const fontFamily = [
   'font-mono',
   'font-serif',
@@ -156,10 +158,13 @@ const fontFamily = [
 
 const { user } = useAuthStore();
 const general_store = GeneralStore();
-
 const title = import.meta.env.VITE_APP_TITLE;
+var path = ref('');
 
-
+router.afterEach((to, from) =>{
+  console.log(to.path)
+  path.value=to.path.slice(1)
+});
 </script>
 <script>
 var prevScrollpos = window.pageYOffset;
@@ -171,5 +176,5 @@ var currentScrollPos = window.pageYOffset;
     document.getElementById("topbar").style.top = "-50px";
   }
   prevScrollpos = currentScrollPos;
-}
+};
 </script>
