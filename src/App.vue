@@ -3,7 +3,11 @@
   import TopBar from "./components/TopBar.vue";
   import { useAuthStore } from "@/stores";
   import { useToast } from "vue-toastification";
-  
+  import { GeneralStore } from "@/stores";
+  const general_store = GeneralStore();
+  console.log(general_store.selectedfontFamily)
+
+
   const toast = useToast();
   const authstore = useAuthStore();
   document.title = import.meta.env.VITE_APP_TITLE;
@@ -42,7 +46,7 @@
 
 
 <template>
-  <div class="app">
+  <div class="app antialiased" :class="general_store.selectedfontFamily">
     <!-- Sidebar -->
     <div v-if="authstore.user" class="fixed top-0 right-0 left-0 z-[9999]"><TopBar /></div>
     <div>

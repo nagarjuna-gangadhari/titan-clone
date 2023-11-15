@@ -14,7 +14,63 @@
       <AcademicCapIcon class="w-6 h-6 bg-green-500 rounded-full" />
       <div class="pl-1 text-xs font-bold">{{title}}</div>
     </div>
-    
+    <Listbox v-model="general_store.selectedfontFamily">
+      <div class="relative mt-1">
+        <ListboxButton
+          class="relative w-full cursor-default pr-10 text-left sm:text-sm"
+        >
+          <span class="block truncate">{{ general_store.selectedfontFamily }}</span>
+          <span
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+          >
+            <ChevronUpDownIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </span>
+        </ListboxButton>
+
+        <transition
+          leave-active-class="transition duration-100 ease-in"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
+        >
+          <ListboxOptions
+            class="absolute mt-0.5 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+          >
+            <ListboxOption
+              v-slot="{ active, selected }"
+              v-for="font in fontFamily"
+              :key="font"
+              :value="font"
+              as="template"
+            >
+              <li
+                :class="[
+                  active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                  'relative cursor-default select-none py-1 pl-6',
+                ]"
+              >
+                <span
+                  :class="[
+                    selected ? 'font-medium' : 'font-normal',
+                    'block truncate',
+                  ]"
+                  >{{ font }}</span
+                >
+                <span
+                  v-if="selected"
+                  class="absolute inset-y-0 left-0 flex items-center pl-1 text-amber-600"
+                >
+                  <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                </span>
+              </li>
+            </ListboxOption>
+          </ListboxOptions>
+        </transition>
+      </div>
+    </Listbox>
+    <div class="flex items-center text-sm space-x-2 cursor-pointer"><p>Help</p> <PhoneIcon class="w-4 h-4" /></div>
     <Menu  as="div" class="relative flex-shrink-0">
       <MenuButton v-if="user"
         class="rounded-ful focus:scale-105"
@@ -39,7 +95,7 @@
         >
           <MenuItem v-slot="{ active }">
             <a
-              href="#"
+              href="/account/edit"
               :class="{ 'bg-gray-100': active }"
               class="block py-2 px-4 text-sm text-gray-700"
               >My Profile</a
@@ -74,17 +130,30 @@
     </Menu>
     
   </div>
-  <div id="myBar" class="w-full h-[2px] bg-cover bg-center bg-[url('@/assets/top-colored-bar.jpg')]"></div>
+  <div id="myBar" class="w-full h-[2px] bg-cover bg-center bg-[url('@/assets/topBar.jpg')]"></div>
 </template>
 
 <script setup>
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
+import {ref} from 'vue'
+import { Menu, MenuButton, MenuItem, MenuItems, Listbox,
+  ListboxLabel,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption, } from "@headlessui/vue";
 import {
   Bars3BottomLeftIcon,
-  AcademicCapIcon,
+  AcademicCapIcon, PhoneIcon
 } from "@heroicons/vue/24/solid/index.js";
 import { useAuthStore } from "@/stores";
 import { GeneralStore } from "@/stores";
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+
+const fontFamily = [
+  'font-mono',
+  'font-serif',
+  'font-sans' 
+]
+
 const { user } = useAuthStore();
 const general_store = GeneralStore();
 

@@ -33,7 +33,7 @@ var myDate = new Date();
 }
 
 #menu{
-    font-family: "Nunito", sans-serif;
+    /* font-family: "Nunito", sans-serif; */
     font-weight: 700;
     font-size: 13px;
     color: #6c7073;
@@ -783,7 +783,7 @@ var myDate = new Date();
 
 <template>
     <div >
-        <div id="menu" class="flex items-center justify-center space-x-8 p-8 font-['Nunito', 'Open_Sans']">
+        <div id="menu" class="flex items-center justify-center space-x-8 p-8">
             <div @click="active_tab=1" class="cursor-pointer" :class="{'border-b-2 border-[#FFA800]': active_tab==1 }">Today</div>
             <div @click="active_tab=2" class="cursor-pointer" :class="{'border-b-2 border-[#FFA800]': active_tab==2 }">Planning</div>
             <div @click="active_tab=3" class="cursor-pointer" :class="{'border-b-2 border-[#FFA800]': active_tab==3 }">Contacts</div>

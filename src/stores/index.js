@@ -6,7 +6,8 @@ export const GeneralStore = defineStore('General', {
       return {
         // all these properties will have their type inferred automatically
         sidebarOpened: false,
-        sidebarHover: false
+        sidebarHover: false,
+        selectedfontFamily: 'font-mono'
       }
     },
   })

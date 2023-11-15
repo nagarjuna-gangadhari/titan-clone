@@ -20,6 +20,7 @@ export const router = createRouter({
           { path: 'login', name: 'Login', meta: { requiresAuth: false }, component: Login},
           { path: 'login2', name: 'Login2', meta: { requiresAuth: false, roles: [] }, component: () => import('@/views/accounts/Login2.vue')},
           { path: 'sign-up', name: 'Signup', meta: { requiresAuth: false, roles: [] }, component: () => import('@/views/accounts/SignUp.vue') },
+          { path: 'edit', name: 'Edit', meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/accounts/SignUp2.vue') },
           { path: 'reset-password', name: 'Reset', meta: { requiresAuth: false, roles: [] }, component: () => import('@/views/accounts/Reset.vue') },
           { path: 'logout', name: 'Logout', meta: { requiresAuth: false }, component: Login },
           // custome
