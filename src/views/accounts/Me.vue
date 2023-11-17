@@ -18,12 +18,12 @@ const { user } = useAuthStore();
                     <div class="flex-none sm:flex">
                       <div class=" relative h-32 w-32   sm:mb-0 mb-3">
                         <img src="https://tailwindcomponents.com/storage/avatars/njkIbPhyZCftc4g9XbMWwVsa7aGVPajYLRXhEeoo.jpg" alt="aji" class=" w-32 h-32 object-cover rounded-2xl">
-                        <a href="/account/edit" class="absolute -right-2 bottom-2   -ml-3  text-white p-1 text-xs bg-green-400 hover:bg-green-500 font-medium tracking-wider rounded-full transition ease-in duration-300">
+                        <router-link to="/account/edit" class="absolute -right-2 bottom-2   -ml-3  text-white p-1 text-xs bg-green-400 hover:bg-green-500 font-medium tracking-wider rounded-full transition ease-in duration-300">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                             </path>
                           </svg>
-                        </a>
+                        </router-link>
                       </div>
                       <div class="flex-auto sm:ml-5 justify-evenly">
                         <div class="flex items-center justify-between sm:mt-2">
@@ -449,6 +449,10 @@ const { user } = useAuthStore();
                                   <div class="px-4 py-2">Doe</div>
                               </div>
                               <div class="grid grid-cols-2">
+                                  <div class="px-4 py-2 font-semibold">Birthday</div>
+                                  <div class="px-4 py-2">Feb 06, 1998</div>
+                              </div>
+                              <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">Gender</div>
                                   <div class="px-4 py-2">Female</div>
                               </div>
@@ -457,96 +461,20 @@ const { user } = useAuthStore();
                                   <div class="px-4 py-2">+11 998001001</div>
                               </div>
                               <div class="grid grid-cols-2">
-                                  <div class="px-4 py-2 font-semibold">Current Address</div>
-                                  <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
-                              </div>
-                              <div class="grid grid-cols-2">
-                                  <div class="px-4 py-2 font-semibold">Permanant Address</div>
-                                  <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
-                              </div>
-                              <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">Email.</div>
                                   <div class="px-4 py-2">
                                       <a class="text-blue-800" href="mailto:jane@example.com">jane@example.com</a>
                                   </div>
                               </div>
-                              <div class="grid grid-cols-2">
-                                  <div class="px-4 py-2 font-semibold">Birthday</div>
-                                  <div class="px-4 py-2">Feb 06, 1998</div>
-                              </div>
                           </div>
                       </div>
-                      <button
-                          class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Show
-                          Full Information</button>
+                      <router-link to="/account/edit" class="block w-full text-center text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Show Full Information</router-link>
+
                   </div>
                   <!-- End of about section -->
-  
-                  <div class="my-4"></div>
-  
-                  <!-- Experience and education -->
-                  <div class="bg-white p-3 shadow-sm rounded-sm">
-  
-                      <div class="grid grid-cols-2">
-                          <div>
-                              <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                  <span clas="text-green-500">
-                                      <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                          stroke="currentColor">
-                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                      </svg>
-                                  </span>
-                                  <span class="tracking-wide">Experience</span>
-                              </div>
-                              <ul class="list-inside space-y-2">
-                                  <li>
-                                      <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                      <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                  </li>
-                                  <li>
-                                      <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                      <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                  </li>
-                                  <li>
-                                      <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                      <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                  </li>
-                                  <li>
-                                      <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                      <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                  </li>
-                              </ul>
-                          </div>
-                          <div>
-                              <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                  <span clas="text-green-500">
-                                      <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                          stroke="currentColor">
-                                          <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                          <path fill="#fff"
-                                              d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                                      </svg>
-                                  </span>
-                                  <span class="tracking-wide">Education</span>
-                              </div>
-                              <ul class="list-inside space-y-2">
-                                  <li>
-                                      <div class="text-teal-600">Masters Degree in Oxford</div>
-                                      <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                  </li>
-                                  <li>
-                                      <div class="text-teal-600">Bachelors Degreen in LPU</div>
-                                      <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                      <!-- End of Experience and education grid -->
-                  </div>
-                  <!-- End of profile tab -->
+
+                  
+            <!-- End of profile tab -->
               </div>
           </div>
       </div>

@@ -96,7 +96,7 @@ const navItems = [
 			{ href: "/center/all", active: false, label: "My Centers", children: [], icon: MagnifyingGlassIcon },
             { href: "/center/admin", active: false, label: "Admin", children: [], icon: RectangleGroupIcon },
             { href: "/center/course", active: false, label: "Course", children: [], icon: BookOpenIcon },
-            { href: "/center/offer", active: false, label: "Offerings", children: [], icon: TicketIcon },
+            { href: "/center/offering", active: false, label: "Offerings", children: [], icon: TicketIcon },
             { href: "/center/student", active: false, label: "Students", children: [], icon: UserIcon },
 			
 		],

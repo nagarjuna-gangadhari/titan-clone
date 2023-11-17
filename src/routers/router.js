@@ -33,11 +33,13 @@ export const router = createRouter({
     // center
       { path: '/center', name: 'Center', meta: { requiresAuth: true },
         children: [
-          {path: 'all', name: 'Centers', props: true, meta: { requiresAuth: true, roles: [2] }, component: () => import('@/views/center/Center.vue') },
-          {path: 'admin', name: 'CenterAdmin', props: true, meta: { requiresAuth: true, roles: [1] }, component: () => import('@/views/center/CenterAdmin.vue') },
+          {path: 'all', name: 'Centers', props: true, meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/center/Center.vue') },
+          {path: 'admin', name: 'CenterAdmin', props: true, meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/center/CenterAdmin.vue') },
           {path: 'class', name: 'Class', meta: { requiresAuth: true }, component: () => import('@/views/center/Class.vue')},
           {path: 'course', name: 'Course', meta: { requiresAuth: true }, component: () => import('@/views/center/Course.vue')},
-          {path: 'course/:id(\\d+)', name: 'CourseDetails', meta: { requiresAuth: true }, component: () => import('@/views/center/CourseDetail.vue')}
+          {path: 'course/:id(\\d+)', name: 'CourseDetails', meta: { requiresAuth: true }, component: () => import('@/views/center/CourseDetail.vue')},
+          {path: 'offering', name: 'Offering', meta: { requiresAuth: true }, component: () => import('@/views/center/Offering.vue')},
+
         ]
 
     },

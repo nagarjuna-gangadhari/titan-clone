@@ -10,8 +10,8 @@ axios.defaults.baseURL = 'http://' + import.meta.env.VITE_API_URL
 
 // Do something before request is sent
 axios.interceptors.request.use((config) => {
-  const { access } = useAuthStore();
-  config.headers.Authorization = `Bearer ${access}`;
+  const authstore = useAuthStore();
+  config.headers.Authorization = `Bearer ${authstore.access}`;
   config.headers.Accept = "application/json";
   return config
 }, function (error) {
@@ -33,6 +33,7 @@ axios.interceptors.response.use(function (response) {
     if ([401, 403].includes(error.response.status) && user) {
       // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
       // auth.logout();
+      console.log('------------calling-------refresh')
       refreshToken()
     }
 

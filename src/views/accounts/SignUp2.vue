@@ -3,14 +3,18 @@
   <div class="p-2 md:ml-4">
     <div class="md:p-10 ">
       <div class="grid md:grid-cols-5 grid-rows-1 md:space-x-10 text-center">
-        <div @click="step = 1" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 1 }">Personal
+        <div @click="step = 1" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 1 }">
+          Personal
         </div>
         <div @click="step = 2" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 2 }">
           Professional</div>
-        <div @click="step = 3" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 3 }">Prefrence
+        <div @click="step = 3" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 3 }">
+          Prefrence
         </div>
-        <div @click="step = 4" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 4 }">Role</div>
-        <div @click="step = 5" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 5 }">Meet-Up
+        <div @click="step = 4" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 4 }">Role
+        </div>
+        <div @click="step = 5" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 5 }">
+          Meet-Up
         </div>
       </div>
     </div>
@@ -41,51 +45,28 @@
               <Listbox v-model="profile.gender">
                 <div class="relative mt-1">
                   <ListboxButton
-                    class="relative w-full z-10 cursor-pointer border-b-2 py-2 overflow-hidden text-left sm:text-sm focus:outline-none focus:ring-0 focus:border-blue-600"
-                  >
+                    class="relative w-full z-10 cursor-pointer border-b-2 py-2 overflow-hidden text-left sm:text-sm focus:outline-none focus:ring-0 focus:border-blue-600">
                     <span class="block truncate">{{ profile.gender.name }}</span>
-                    <span
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-                    >
-                      <ChevronUpDownIcon
-                        class="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
+                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
                   </ListboxButton>
 
-                  <transition
-                    leave-active-class="transition duration-100 ease-in"
-                    leave-from-class="opacity-100"
-                    leave-to-class="opacity-0"
-                  >
+                  <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
+                    leave-to-class="opacity-0">
                     <ListboxOptions
-                      class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
-                    >
-                      <ListboxOption
-                        v-slot="{ active, selected }"
-                        v-for="gender in genders"
-                        :key="gender.name"
-                        :value="gender"
-                        as="template"
-                      >
-                        <li
-                          :class="[
-                            active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
-                            'relative cursor-default select-none py-2 pl-10 pr-4',
-                          ]"
-                        >
-                          <span
-                            :class="[
-                              selected ? 'font-medium' : 'font-normal',
-                              'block truncate',
-                            ]"
-                            >{{ gender.name }}</span
-                          >
-                          <span
-                            v-if="selected"
-                            class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                          >
+                      class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                      <ListboxOption v-slot="{ active, selected }" v-for="gender in genders" :key="gender.name"
+                        :value="gender" as="template">
+                        <li :class="[
+                          active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
+                          'relative cursor-default select-none py-2 pl-10 pr-4',
+                        ]">
+                          <span :class="[
+                            selected ? 'font-medium' : 'font-normal',
+                            'block truncate',
+                          ]">{{ gender.name }}</span>
+                          <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
                             <CheckIcon class="h-5 w-5" aria-hidden="true" />
                           </span>
                         </li>
@@ -95,8 +76,8 @@
                 </div>
               </Listbox>
               <label for="floating_dob"
-              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              Gender</label>
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Gender</label>
             </div>
             <div class="relative z-0 my-6 w-full group">
               <input type="date" name="floating_dob" id="floating_dob" v-model="profile.dob"
@@ -251,8 +232,8 @@
             </div>
             <div>
               <div>
-                <button v-if="profile.eMail != original_email && !email_otp_sent" @click="sendOTP(mobile = false, email = true)"
-                  type="submit"
+                <button v-if="profile.eMail != original_email && !email_otp_sent"
+                  @click="sendOTP(mobile = false, email = true)" type="submit"
                   class="mt-6 py-1 px-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   Send OTP
                 </button>
@@ -282,8 +263,8 @@
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" " required v-model="profile.mobile" />
               <label for="floating_mobile"
-                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">mobile
-                address</label>
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mobile
+                number</label>
               <CheckCircleIcon v-if="profile.mobile == original_mobile" class="w-8 h-8 text-green-500" />
 
             </div>
@@ -325,51 +306,28 @@
               <Listbox v-model="profile.education">
                 <div class="relative mt-1">
                   <ListboxButton
-                    class="relative w-full z-10 cursor-pointer border-b-2 py-2 overflow-hidden text-left sm:text-sm focus:outline-none focus:ring-0 focus:border-blue-600"
-                  >
+                    class="relative w-full z-10 cursor-pointer border-b-2 py-2 overflow-hidden text-left sm:text-sm focus:outline-none focus:ring-0 focus:border-blue-600">
                     <span class="block truncate">{{ profile.education.name }}</span>
-                    <span
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-                    >
-                      <ChevronUpDownIcon
-                        class="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
+                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
                   </ListboxButton>
 
-                  <transition
-                    leave-active-class="transition duration-100 ease-in"
-                    leave-from-class="opacity-100"
-                    leave-to-class="opacity-0"
-                  >
+                  <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
+                    leave-to-class="opacity-0">
                     <ListboxOptions
-                      class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
-                    >
-                      <ListboxOption
-                        v-slot="{ active, selected }"
-                        v-for="education in educations"
-                        :key="education.name"
-                        :value="education"
-                        as="template"
-                      >
-                        <li
-                          :class="[
-                            active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
-                            'relative cursor-default select-none py-2 pl-10 pr-4',
-                          ]"
-                        >
-                          <span
-                            :class="[
-                              selected ? 'font-medium' : 'font-normal',
-                              'block truncate',
-                            ]"
-                            >{{ education.name }}</span
-                          >
-                          <span
-                            v-if="selected"
-                            class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                          >
+                      class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                      <ListboxOption v-slot="{ active, selected }" v-for="education in educations" :key="education.name"
+                        :value="education" as="template">
+                        <li :class="[
+                          active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
+                          'relative cursor-default select-none py-2 pl-10 pr-4',
+                        ]">
+                          <span :class="[
+                            selected ? 'font-medium' : 'font-normal',
+                            'block truncate',
+                          ]">{{ education.name }}</span>
+                          <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
                             <CheckIcon class="h-5 w-5" aria-hidden="true" />
                           </span>
                         </li>
@@ -379,58 +337,35 @@
                 </div>
               </Listbox>
               <label for="floating_dob"
-              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              Education</label>
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Education</label>
             </div>
             <div class="relative md:mt-6  my-6 w-full group">
               <Listbox v-model="profile.profession">
                 <div class="relative mt-1">
                   <ListboxButton
-                    class="relative w-full z-10 cursor-pointer border-b-2 py-2 overflow-hidden text-left sm:text-sm focus:outline-none focus:ring-0 focus:border-blue-600"
-                  >
+                    class="relative w-full z-10 cursor-pointer border-b-2 py-2 overflow-hidden text-left sm:text-sm focus:outline-none focus:ring-0 focus:border-blue-600">
                     <span class="block truncate">{{ profile.profession.name }}</span>
-                    <span
-                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-                    >
-                      <ChevronUpDownIcon
-                        class="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
+                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                     </span>
                   </ListboxButton>
 
-                  <transition
-                    leave-active-class="transition duration-100 ease-in"
-                    leave-from-class="opacity-100"
-                    leave-to-class="opacity-0"
-                  >
+                  <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
+                    leave-to-class="opacity-0">
                     <ListboxOptions
-                      class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
-                    >
-                      <ListboxOption
-                        v-slot="{ active, selected }"
-                        v-for="profession in professions"
-                        :key="profession.name"
-                        :value="profession"
-                        as="template"
-                      >
-                        <li
-                          :class="[
-                            active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
-                            'relative cursor-default select-none py-2 pl-10 pr-4',
-                          ]"
-                        >
-                          <span
-                            :class="[
-                              selected ? 'font-medium' : 'font-normal',
-                              'block truncate',
-                            ]"
-                            >{{ profession.name }}</span
-                          >
-                          <span
-                            v-if="selected"
-                            class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                          >
+                      class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                      <ListboxOption v-slot="{ active, selected }" v-for="profession in professions"
+                        :key="profession.name" :value="profession" as="template">
+                        <li :class="[
+                          active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
+                          'relative cursor-default select-none py-2 pl-10 pr-4',
+                        ]">
+                          <span :class="[
+                            selected ? 'font-medium' : 'font-normal',
+                            'block truncate',
+                          ]">{{ profession.name }}</span>
+                          <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
                             <CheckIcon class="h-5 w-5" aria-hidden="true" />
                           </span>
                         </li>
@@ -440,8 +375,8 @@
                 </div>
               </Listbox>
               <label for="floating_dob"
-              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              Profession</label>
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Profession</label>
             </div>
             <div class="relative z-0 my-6 w-full group">
               <input type="text" name="floating_linkedIn" id="floating_linkedIn" v-model="profile.linkedIn"
@@ -449,13 +384,13 @@
                 placeholder="" />
               <label for="floating_linkedIn"
                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              LinkedIn</label>
+                LinkedIn</label>
             </div>
           </div>
-          
+
           <div class="grid md:grid-cols-2 md:gap-4">
-            
-            
+
+
             <div class="relative z-0 my-6 w-full group">
               <textarea v-model="profile.about" type="textarea" name="floating_description" id="floating_last_name"
                 class="block p-2 w-full text-sm text-gray-900 bg-transparent border rounded-lg border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -468,126 +403,63 @@
 
 
           <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>
       </div>
       <div v-if="step == 3">
         <form>
-          
-          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2 py-6">
+
+          <div v-for="preference in profile.preferences" class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2 py-6">
             <div class="border-r-2">
-              <Switch
-                v-model="enabled"
-                :class="enabled ? 'bg-blue-600' : 'bg-gray-200'"
-                class="relative inline-flex h-6 w-11 items-center rounded-full"
-              >
+              <Switch v-model="preference.status" :class="preference.status ? 'bg-green-600' : 'bg-gray-200'"
+                class="relative inline-flex h-6 w-11 items-center rounded-full">
                 <span class="sr-only">Enable notifications</span>
-                <span
-                  :class="enabled ? 'translate-x-6' : 'translate-x-1'"
-                  class="inline-block h-4 w-4 transform rounded-full bg-white transition"
-                />
+                <span :class="preference.status ? 'translate-x-6' : 'translate-x-1'"
+                  class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
               </Switch>
             </div>
-            <div class="col-span-6 md:visible truncate p-4 text-start">I would you to like recive weekly mails</div>
+            <div class="col-span-6 md:visible truncate p-4 text-start text-xs">{{ preference.name }}</div>
           </div>
-          
-          
 
-          <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>
       </div>
       <div v-if="step == 4">
         <form>
-          <div class="grid md:grid-cols-7 py-2 text-center text-gray-900 font-bold text-sm">
+          <div class="grid md:grid-cols-8 py-2 text-center text-gray-900 font-bold text-sm">
             <div class="">Role</div>
             <div>Opted</div>
             <div class="">Status</div>
             <div class="col-span-4">Description</div>
+            <div>History</div>
           </div>
-          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2">
-            <div class="border-r-2">Teacher</div>
+          <div v-for="role in profile.roles" class="grid md:grid-cols-8 h-[5rem] text-sm text-center items-center border-t-2">
+            <div class="border-r-2">{{ role.name }}</div>
             <div class="border-r-2">
-              <Switch
-                v-model="enabled"
-                :class="enabled ? 'bg-blue-600' : 'bg-gray-200'"
-                class="relative inline-flex h-6 w-11 items-center rounded-full"
-              >
+              <Switch v-model="role.opted" :class="role.opted ? 'bg-green-600' : 'bg-gray-200'"
+                class="relative inline-flex h-6 w-11 items-center rounded-full">
                 <span class="sr-only">Enable notifications</span>
-                <span
-                  :class="enabled ? 'translate-x-6' : 'translate-x-1'"
-                  class="inline-block h-4 w-4 transform rounded-full bg-white transition"
-                />
+                <span :class="role.opted ? 'translate-x-6' : 'translate-x-1'"
+                  class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
               </Switch>
             </div>
-            <div class="border-r-2">Approved</div> 
-            <div class="col-span-4 md:visible truncate p-2">aaaa aaa aa a aaaaaa aaa aaa aaa aaaa
-              aaaa aaaaaa aaaaaa aaaaaaaaaaa aaaaaa aaaaaaaaaa
-              aaaaaaaa aaaaaaa aaaaaaaaaaa</div>
-          </div>
-          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2">
-            <div class="border-r-2">Facilitator Teacher</div>
-            <div class="border-r-2">
-              <Switch
-                v-model="enabled"
-                :class="enabled ? 'bg-blue-600' : 'bg-gray-200'"
-                class="relative inline-flex h-6 w-11 items-center rounded-full"
-              >
-                <span class="sr-only">Enable notifications</span>
-                <span
-                  :class="enabled ? 'translate-x-6' : 'translate-x-1'"
-                  class="inline-block h-4 w-4 transform rounded-full bg-white transition"
-                />
-              </Switch>
+            <div class="border-r-2">{{ role.status.name }}</div>
+            <div class="col-span-4 md:visible truncate p-2 border-r-2">{{ role.description }}</div>
+            <div>
+              <Popover class="relative">
+                <PopoverButton class="bg-blue-600 text-white px-2 py-1 focus-0 rounded-lg">View</PopoverButton>
+
+                <PopoverPanel class="absolute z-20 bg-gray-200 text-gray-900 rounded-lg border-2 w-96 right-0">
+                  <div class="">
+                    <div v-for="(histor, index) in role.history" :key="histor.id" class="grid md:grid-cols-8 items-center justify-center text-left px-1 w-full border border-b space-y-2">
+                      <div class="col-span-3">{{ histor.id }} - {{ histor.date }}</div>
+                      <div class="col-span-5">{{ histor.name }}</div>
+                    </div>
+                  </div>
+                </PopoverPanel>
+              </Popover>
             </div>
-            <div class="border-r-2">Approved</div> 
-            <div class="col-span-4 md:visible truncate p-2">aaaa aaa aa a aaaaaa aaa aaa aaa aaaa
-              aaaa aaaaaa aaaaaa aaaaaaaaaaa aaaaaa aaaaaaaaaa
-              aaaaaaaa aaaaaaa aaaaaaaaaaa</div>
-          </div>
-          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2">
-            <div class="border-r-2">Content Developer</div>
-            <div class="border-r-2">
-              <Switch
-                v-model="enabled"
-                :class="enabled ? 'bg-blue-600' : 'bg-gray-200'"
-                class="relative inline-flex h-6 w-11 items-center rounded-full"
-              >
-                <span class="sr-only">Enable notifications</span>
-                <span
-                  :class="enabled ? 'translate-x-6' : 'translate-x-1'"
-                  class="inline-block h-4 w-4 transform rounded-full bg-white transition"
-                />
-              </Switch>
-            </div>
-            <div class="border-r-2">Approved</div> 
-            <div class="col-span-4 md:visible truncate p-2">aaaa aaa aa a aaaaaa aaa aaa aaa aaaa
-              aaaa aaaaaa aaaaaa aaaaaaaaaaa aaaaaa aaaaaaaaaa
-              aaaaaaaa aaaaaaa aaaaaaaaaaa</div>
-          </div>
-          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2">
-            <div class="border-r-2">Other</div>
-            <div class="border-r-2">
-              <Switch
-                v-model="enabled"
-                :class="enabled ? 'bg-blue-600' : 'bg-gray-200'"
-                class="relative inline-flex h-6 w-11 items-center rounded-full"
-              >
-                <span class="sr-only">Enable notifications</span>
-                <span
-                  :class="enabled ? 'translate-x-6' : 'translate-x-1'"
-                  class="inline-block h-4 w-4 transform rounded-full bg-white transition"
-                />
-              </Switch>
-            </div>
-            <div class="border-r-2">Approved</div> 
-            <div class="col-span-4 md:visible truncate p-2">aaaa aaa aa a aaaaaa aaa aaa aaa aaaa
-              aaaa aaaaaa aaaaaa aaaaaaaaaaa aaaaaa aaaaaaaaaa
-              aaaaaaaa aaaaaaa aaaaaaaaaaa</div>
           </div>
 
-          <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>
       </div>
     </div>
@@ -611,7 +483,7 @@ import {
   ListboxButton,
   ListboxOptions,
   ListboxOption,
-  Switch,
+  Switch, Popover, PopoverButton, PopoverPanel
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
@@ -630,18 +502,59 @@ var profile = ref({
   firstName: "XXXXXXXX",
   lastName: "YYYYYYYYY",
   mobile: "9876543210",
-  country:{ id: 1, name: 'India' },
-  state:{ id: 1, name: 'AP' },
+  country: { id: 1, name: 'India' },
+  state: { id: 1, name: 'AP' },
   city: { id: 1, name: 'Goa' },
   dob: "2001-11-21",
   termOfService: false,
   pinCode: "123456",
   eMail: 'xyz@gmail.com',
-  profession: {id: 1, name: 'Self Employed'},
-  education: {id: 1, name: 'PHD'},
+  profession: { id: 1, name: 'Self Employed' },
+  education: { id: 1, name: 'PHD' },
   linkedIn: 'https://in.linkedin.com/xyz',
-  about: 'I am .....'
+  about: 'I am .....',
+  preferences: [
+    {id:1, name: 'Get Mails', status:true},
+    {id:2, name: 'Get Messages', status:true},
+    {id:3, name: 'Watsapp', status:true},
+    {id:4, name: 'Calls', status:true},
+  ],
+  roles: [
+    {
+      id: 1, name: 'Teacher', opted: true, status: { id: 1, name: 'Approved' },
+      history: [
+        { id: 1, name: 'Role Approved', date: '12-12-2009' },
+        { id: 2, name: 'Meeting', date: '11-12-2009' },
+        { id: 3, name: 'Role Opted', date: '01-12-2009' },
+      ]
+    },
+    {
+      id: 2, name: 'CD', opted: true, status: { id: 2, name: 'Pending' },
+      history: [
+        { id: 1, name: 'Role Approved', date: '12-12-2009' },
+        { id: 2, name: 'Meeting', date: '11-12-2009' },
+        { id: 3, name: 'Role Opted', date: '01-12-2009' },
+      ]
+    },
+    {
+      id: 3, name: 'FT', opted: true, status: { id: 3, name: 'Approved' },
+      history: [
+        { id: 1, name: 'Role Approved', date: '12-12-2009' },
+        { id: 2, name: 'Meeting', date: '11-12-2009' },
+        { id: 3, name: 'Role Opted', date: '01-12-2009' },
+      ]
+    },
+    {
+      id: 4, name: 'Others', opted: false, status: { id: 4, name: 'Approved' },
+      history: [
+        { id: 1, name: 'Role Approved', date: '12-12-2009' },
+        { id: 2, name: 'Meeting', date: '11-12-2009' },
+        { id: 3, name: 'Role Opted', date: '01-12-2009' },
+      ]
+    }
+  ]
 });
+
 
 
 
@@ -689,26 +602,26 @@ function verifyOTP(mobile = false, email = false) {
 }
 
 const educations = [
-  {id: 1, name: 'PHD'},
-  {id: 2, name: 'Post Graduation'},
-  {id: 3, name: 'Under Gradution'},
-  {id: 4, name: 'Diploma'},
-  {id: 5, name: 'High School'},
+  { id: 1, name: 'PHD' },
+  { id: 2, name: 'Post Graduation' },
+  { id: 3, name: 'Under Gradution' },
+  { id: 4, name: 'Diploma' },
+  { id: 5, name: 'High School' },
 ]
 
 const professions = [
-  {id: 1, name: 'Self Employed'},
-  {id: 2, name: 'Home Maker'},
-  {id: 3, name: 'Agriculture'},
-  {id: 4, name: 'Medical'},
-  {id: 5, name: 'Engineering'},
-  {id: 6, name: 'Law'},
-  {id: 7, name: 'Service'},
-  {id: 8, name: 'PSU'},
-  {id: 9, name: 'Retaired'},
-  {id: 10, name: 'Teaching'},
-  {id: 11, name: 'Student'},
-  {id: 12, name: 'Others'},
+  { id: 1, name: 'Self Employed' },
+  { id: 2, name: 'Home Maker' },
+  { id: 3, name: 'Agriculture' },
+  { id: 4, name: 'Medical' },
+  { id: 5, name: 'Engineering' },
+  { id: 6, name: 'Law' },
+  { id: 7, name: 'Service' },
+  { id: 8, name: 'PSU' },
+  { id: 9, name: 'Retaired' },
+  { id: 10, name: 'Teaching' },
+  { id: 11, name: 'Student' },
+  { id: 12, name: 'Others' },
 ]
 
 const genders = [

@@ -31,17 +31,22 @@ export const useAuthStore = defineStore('AUTH', {
       if (this.access) {
         const access_data = authService.parseJwt(this.access);
         if (access_data) {
+          console.log(access_data.exp)
           if (+new Date <= access_data.exp) {
             console.log('token expaired');
             this.refresh();
             return null;
           }
           if (call_user_data) {
+            console.log('updating user')
             this.update_user();
           }
           return this.user_data;
+        }else{
+          this.refresh()
         }
       }
+      console.log('-----1-----')
       this.logout()
       return null;
     },
@@ -57,33 +62,39 @@ export const useAuthStore = defineStore('AUTH', {
         this.token = response;
         localStorage.setItem('access', response.access);
         localStorage.setItem('refresh', response.refresh);
-        localStorage.setItem('token', JSON.stringify(response));
+        document.cookie = response.refresh
+        // localStorage.setItem('token', JSON.stringify(response));
         this.update_user()
         router.push(this.returnUrl || '/');
       }
       return response;
     },
     logout() {
+      console.log('calling log out')
       this.token = null;
       this.access = null;
       this.refresh = null;
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
       this.returnUrl = '/'
-      // router.push('/login');
+      router.push('/login');
     },
     async refreshToken() {
-      if (this.access) {
+      if (this.refresh) {
         const newAccess = await authService.refreshToken(this.refresh);
         if (newAccess) {
           this.access = newAccess;
           localStorage.setItem('access', newAccess);
+          localStorage.setItem('refresh', this.refresh);
+          console.log('----123---')
           this.update_user()
         } else {
+          console.log('-----2-----')
           this.logout();
         }
       } else {
+        console.log('-----3-----')
         this.logout();
       }
 
@@ -96,7 +107,8 @@ export const useAuthStore = defineStore('AUTH', {
         this.user_data.email = k.email
         this.user_data.roles = k.groups
       }else {
-        this.logout();
+        console.log('-----4-----')
+        this.refreshToken();
       }
     }
 
