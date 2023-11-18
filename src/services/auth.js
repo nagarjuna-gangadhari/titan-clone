@@ -50,6 +50,21 @@ export const authService = {
   
       return JSON.parse(jsonPayload);
     },
+
+    async profile(){
+      const response = await axios.get('/auth/profile')
+      console.log(response)
+      if (response){
+        return response
+      }
+    },
+
+    async location(){
+      const response = await axios.get('/auth/location')
+      if (response){
+        return response
+      }
+    }
   
     // Add other utility functions related to authentication API calls here
   };

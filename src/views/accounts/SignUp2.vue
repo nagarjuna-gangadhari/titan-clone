@@ -24,7 +24,7 @@
         <form @submit.prevent="profileSubmit()" class="flex flex-col">
           <div class="grid md:grid-cols-2 md:gap-4">
             <div class="relative z-0 my-6 w-full group">
-              <input type="text" name="floating_first_name" id="floating_first_name" v-model="profile.firstName"
+              <input type="text" name="floating_first_name" id="floating_first_name" v-model="profile.first_name"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder="" required />
               <label for="floating_first_name"
@@ -32,7 +32,7 @@
                 name</label>
             </div>
             <div class="relative z-0 my-6 w-full group">
-              <input type="text" name="floating_last_name" id="floating_last_name" v-model="profile.lastName"
+              <input type="text" name="floating_last_name" id="floating_last_name" v-model="profile.last_name"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" " required />
               <label for="floating_last_name"
@@ -56,7 +56,7 @@
                     leave-to-class="opacity-0">
                     <ListboxOptions
                       class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                      <ListboxOption v-slot="{ active, selected }" v-for="gender in genders" :key="gender.name"
+                      <ListboxOption v-slot="{ active, selected }" v-for="gender in profile.genders" :key="gender.id"
                         :value="gender" as="template">
                         <li :class="[
                           active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
@@ -223,22 +223,22 @@
             <div class="relative z-0 my-6 w-full group flex">
               <input type="email" name="floating_email"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" " required v-model="profile.eMail" />
+                placeholder=" " required v-model="profile.email" />
               <label for="floating_email"
                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email
                 address</label>
-              <CheckCircleIcon v-if="profile.eMail == original_email" class="w-8 h-8 text-green-500" />
+              <CheckCircleIcon v-if="profile.email == authStore.email" class="w-8 h-8 text-green-500" />
 
             </div>
             <div>
               <div>
-                <button v-if="profile.eMail != original_email && !email_otp_sent"
+                <button v-if="profile.email != authStore.email && !email_otp_sent"
                   @click="sendOTP(mobile = false, email = true)" type="submit"
                   class="mt-6 py-1 px-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   Send OTP
                 </button>
               </div>
-              <div v-if="profile.eMail != original_email && email_otp_sent" class="grid md:grid-cols-2 md:gap-3">
+              <div v-if="profile.email != authStore.email && email_otp_sent" class="grid md:grid-cols-2 md:gap-3">
                 <div class="relative z-0 my-6 w-full group">
                   <input type="email" name="floating_email"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -249,7 +249,7 @@
                 </div>
                 <div class="flex items-center space-x-4 justify-around">
                   <div>
-                    <button v-if="profile.eMail != original_email && email_otp_sent"
+                    <button v-if="profile.email != authStore.email && email_otp_sent"
                       @click="verifyOTP(mobile = false, email = true)"
                       class="py-1 px-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
                   </div>
@@ -265,18 +265,18 @@
               <label for="floating_mobile"
                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mobile
                 number</label>
-              <CheckCircleIcon v-if="profile.mobile == original_mobile" class="w-8 h-8 text-green-500" />
+              <CheckCircleIcon v-if="profile.mobile == authStore.mobile" class="w-8 h-8 text-green-500" />
 
             </div>
             <div>
               <div>
-                <button v-if="profile.mobile != original_mobile && !mobile_otp_sent"
+                <button v-if="profile.mobile != authStore.mobile && !mobile_otp_sent"
                   @click="sendOTP(mobile = true, email = false)" type="submit"
                   class="mt-6 py-1 px-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   Send OTP
                 </button>
               </div>
-              <div v-if="profile.mobile != original_mobile && mobile_otp_sent" class="grid md:grid-cols-2 md:gap-3">
+              <div v-if="profile.mobile != authStore.mobile && mobile_otp_sent" class="grid md:grid-cols-2 md:gap-3">
                 <div class="relative z-0 my-6 w-full group">
                   <input type="mobile" name="floating_mobile"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -287,7 +287,7 @@
                 </div>
                 <div class="flex items-center space-x-4 justify-around">
                   <div>
-                    <button v-if="profile.mobile != original_mobile && mobile_otp_sent"
+                    <button v-if="profile.mobile != authStore.mobile && mobile_otp_sent"
                       @click="verifyOTP(mobile = true, email = false)"
                       class="py-1 px-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Verify</button>
                   </div>
@@ -317,7 +317,7 @@
                     leave-to-class="opacity-0">
                     <ListboxOptions
                       class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                      <ListboxOption v-slot="{ active, selected }" v-for="education in educations" :key="education.name"
+                      <ListboxOption v-slot="{ active, selected }" v-for="education in profile.educations" :key="education.name"
                         :value="education" as="template">
                         <li :class="[
                           active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
@@ -355,7 +355,7 @@
                     leave-to-class="opacity-0">
                     <ListboxOptions
                       class="absolute mt-0.5 z-20 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                      <ListboxOption v-slot="{ active, selected }" v-for="profession in professions"
+                      <ListboxOption v-slot="{ active, selected }" v-for="profession in profile.professions"
                         :key="profession.name" :value="profession" as="template">
                         <li :class="[
                           active ? 'bg-amber-200 text-amber-900' : 'text-gray-900',
@@ -418,7 +418,7 @@
                   class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
               </Switch>
             </div>
-            <div class="col-span-6 md:visible truncate p-4 text-start text-xs">{{ preference.name }}</div>
+            <div class="col-span-6 md:visible truncate p-4 text-start text-sm">{{ preference.type }}</div>
           </div>
 
         </form>
@@ -442,13 +442,13 @@
                   class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
               </Switch>
             </div>
-            <div class="border-r-2">{{ role.status.name }}</div>
+            <div class="border-r-2">{{ role.status }}</div>
             <div class="col-span-4 md:visible truncate p-2 border-r-2">{{ role.description }}</div>
             <div>
               <Popover class="relative">
                 <PopoverButton class="bg-blue-600 text-white px-2 py-1 focus-0 rounded-lg">View</PopoverButton>
 
-                <PopoverPanel class="absolute z-20 bg-gray-200 text-gray-900 rounded-lg border-2 w-96 right-0">
+                <PopoverPanel class="absolute z-20 bg-gray-100 text-gray-900 rounded-lg border-2 w-96 right-0 h-72 overflow-scroll  shadow-xl">
                   <div class="">
                     <div v-for="(histor, index) in role.history" :key="histor.id" class="grid md:grid-cols-8 items-center justify-center text-left px-1 w-full border border-b space-y-2">
                       <div class="col-span-3">{{ histor.id }} - {{ histor.date }}</div>
@@ -486,76 +486,80 @@ import {
   Switch, Popover, PopoverButton, PopoverPanel
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
-
+import { useAuthStore} from "@/stores";
+const authStore = useAuthStore()
+const profile = authStore.profile
 
 const toast = useToast();
-const original_mobile = ref('9876543210');
-const original_email = ref('xyz@gmail.com');
 var email_otp_sent = ref(false);
 var mobile_otp_sent = ref(false);
 var email_otp = ref('');
 var mobile_otp = ref('');
 
 var step = ref(1);
-var profile = ref({
-  gender: { id: 1, name: 'Male' },
-  firstName: "XXXXXXXX",
-  lastName: "YYYYYYYYY",
-  mobile: "9876543210",
-  country: { id: 1, name: 'India' },
-  state: { id: 1, name: 'AP' },
-  city: { id: 1, name: 'Goa' },
-  dob: "2001-11-21",
-  termOfService: false,
-  pinCode: "123456",
-  eMail: 'xyz@gmail.com',
-  profession: { id: 1, name: 'Self Employed' },
-  education: { id: 1, name: 'PHD' },
-  linkedIn: 'https://in.linkedin.com/xyz',
-  about: 'I am .....',
-  preferences: [
-    {id:1, name: 'Get Mails', status:true},
-    {id:2, name: 'Get Messages', status:true},
-    {id:3, name: 'Watsapp', status:true},
-    {id:4, name: 'Calls', status:true},
-  ],
-  roles: [
-    {
-      id: 1, name: 'Teacher', opted: true, status: { id: 1, name: 'Approved' },
-      history: [
-        { id: 1, name: 'Role Approved', date: '12-12-2009' },
-        { id: 2, name: 'Meeting', date: '11-12-2009' },
-        { id: 3, name: 'Role Opted', date: '01-12-2009' },
-      ]
-    },
-    {
-      id: 2, name: 'CD', opted: true, status: { id: 2, name: 'Pending' },
-      history: [
-        { id: 1, name: 'Role Approved', date: '12-12-2009' },
-        { id: 2, name: 'Meeting', date: '11-12-2009' },
-        { id: 3, name: 'Role Opted', date: '01-12-2009' },
-      ]
-    },
-    {
-      id: 3, name: 'FT', opted: true, status: { id: 3, name: 'Approved' },
-      history: [
-        { id: 1, name: 'Role Approved', date: '12-12-2009' },
-        { id: 2, name: 'Meeting', date: '11-12-2009' },
-        { id: 3, name: 'Role Opted', date: '01-12-2009' },
-      ]
-    },
-    {
-      id: 4, name: 'Others', opted: false, status: { id: 4, name: 'Approved' },
-      history: [
-        { id: 1, name: 'Role Approved', date: '12-12-2009' },
-        { id: 2, name: 'Meeting', date: '11-12-2009' },
-        { id: 3, name: 'Role Opted', date: '01-12-2009' },
-      ]
-    }
-  ]
-});
 
 
+
+
+
+
+// var profile = ref({
+//   gender: { id: 1, name: 'Male' },
+//   firstName: "XXXXXXXX",
+//   lastName: "YYYYYYYYY",
+//   mobile: "9876543210",
+//   country: { id: 1, name: 'India' },
+//   state: { id: 1, name: 'AP' },
+//   city: { id: 1, name: 'Goa' },
+//   dob: "2001-11-21",
+//   termOfService: false,
+//   pinCode: "123456",
+//   emial: 'xyz@gmail.com',
+//   profession: { id: 1, name: 'Self Employed' },
+//   education: { id: 1, name: 'PHD' },
+//   linkedIn: 'https://in.linkedin.com/xyz',
+//   about: 'I am .....',
+//   preferences: [
+//     {id:1, name: 'Get Mails', status:true},
+//     {id:2, name: 'Get Messages', status:true},
+//     {id:3, name: 'Watsapp', status:true},
+//     {id:4, name: 'Calls', status:true},
+//   ],
+//   roles: [
+//     {
+//       id: 1, name: 'Teacher', opted: true, status: { id: 1, name: 'Approved' },
+//       history: [
+//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
+//         { id: 2, name: 'Meeting', date: '11-12-2009' },
+//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
+//       ]
+//     },
+//     {
+//       id: 2, name: 'CD', opted: true, status: { id: 2, name: 'Pending' },
+//       history: [
+//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
+//         { id: 2, name: 'Meeting', date: '11-12-2009' },
+//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
+//       ]
+//     },
+//     {
+//       id: 3, name: 'FT', opted: true, status: { id: 3, name: 'Approved' },
+//       history: [
+//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
+//         { id: 2, name: 'Meeting', date: '11-12-2009' },
+//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
+//       ]
+//     },
+//     {
+//       id: 4, name: 'Others', opted: false, status: { id: 4, name: 'Approved' },
+//       history: [
+//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
+//         { id: 2, name: 'Meeting', date: '11-12-2009' },
+//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
+//       ]
+//     }
+//   ]
+// });
 
 
 function profileSubmit() {
@@ -571,14 +575,14 @@ function sendOTP(mobile = false, email = false) {
 
   } else if (email) {
     this.email_otp_sent = true
-    console.log(this.profile.eMail)
+    console.log(this.profile.email)
   }
 }
 
 function verifyOTP(mobile = false, email = false) {
   if (mobile) {
     if (this.mobile_otp.length == 6) {
-      this.original_mobile = this.profile.mobile
+      this.authStore.mobile = this.profile.mobile
       this.mobile_otp = ''
       this.mobile_otp_sent = false
 
@@ -589,7 +593,7 @@ function verifyOTP(mobile = false, email = false) {
 
   } else if (email) {
     if (this.email_otp.length == 6) {
-      this.original_email = this.profile.eMail
+      this.authStore.email = this.profile.email
       this.email_otp = ''
       this.email_otp_sent = false
 
@@ -601,93 +605,37 @@ function verifyOTP(mobile = false, email = false) {
   }
 }
 
-const educations = [
-  { id: 1, name: 'PHD' },
-  { id: 2, name: 'Post Graduation' },
-  { id: 3, name: 'Under Gradution' },
-  { id: 4, name: 'Diploma' },
-  { id: 5, name: 'High School' },
-]
 
-const professions = [
-  { id: 1, name: 'Self Employed' },
-  { id: 2, name: 'Home Maker' },
-  { id: 3, name: 'Agriculture' },
-  { id: 4, name: 'Medical' },
-  { id: 5, name: 'Engineering' },
-  { id: 6, name: 'Law' },
-  { id: 7, name: 'Service' },
-  { id: 8, name: 'PSU' },
-  { id: 9, name: 'Retaired' },
-  { id: 10, name: 'Teaching' },
-  { id: 11, name: 'Student' },
-  { id: 12, name: 'Others' },
-]
-
-const genders = [
-  { id: 1, name: 'Male' },
-  { id: 2, name: 'Female', },
-  { id: 3, name: 'Others', }
-]
-
-const countries = [
-  { id: 1, name: 'India' },
-  { id: 2, name: 'Nepal', },
-  { id: 3, name: 'Pakistan', },
-  { id: 4, name: 'Bangladesh' },
-  { id: 5, name: 'Sri Lanka' },
-  { id: 6, name: 'Papuva New Gunia' },
-]
-
+// ------------------------------------------------------
 let countryQuery = ref('')
 let filteredcountries = computed(() =>
   countryQuery.value === ''
-    ? countries
-    : countries.filter((country) =>
+    ? profile.countries
+    : profile.countries.value.filter((country) =>
       country.name
         .toLowerCase()
         .replace(/\s+/g, '')
         .includes(countryQuery.value.toLowerCase().replace(/\s+/g, ''))
     )
 )
-
-// ------------------------------------------------
-const states = [
-  { id: 1, name: 'Arunachal Pradesh' },
-  { id: 2, name: 'Andhra Pradesh', },
-  { id: 3, name: 'Karnataka', },
-  { id: 4, name: 'Tamil Nadu' },
-  { id: 5, name: 'Kerala' },
-  { id: 6, name: 'Assam' },
-]
-
+// ------------------------------------------------------
 let stateQuery = ref('')
 let filteredStates = computed(() =>
   stateQuery.value === ''
-    ? states
-    : states.filter((state) =>
+    ? profile.states
+    : profile.states.filter((state) =>
       state.name
         .toLowerCase()
         .replace(/\s+/g, '')
         .includes(stateQuery.value.toLowerCase().replace(/\s+/g, ''))
     )
 )
-
-// ------------------------------------------------
-const cities = [
-  { id: 1, name: 'Ganjal' },
-  { id: 2, name: 'Vizag', },
-  { id: 3, name: 'Bengaluru', },
-  { id: 4, name: 'Chenai' },
-  { id: 5, name: 'Kochi' },
-  { id: 6, name: 'Goa' },
-]
-
+// ------------------------------------------------------
 let cityQuery = ref('')
 let filteredCities = computed(() =>
   cityQuery.value === ''
-    ? cities
-    : cities.filter((city) =>
+    ? profile.cities
+    : profile.cities.filter((city) =>
       city.name
         .toLowerCase()
         .replace(/\s+/g, '')
