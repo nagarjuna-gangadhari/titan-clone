@@ -106,14 +106,12 @@ const { user } = useAuthStore();
                       
                     </div>
                     <div class="mt-2">
-                      <h3 class="text-gray-600 font-lg text-semibold leading-6">CEO at SAFRON Inc.</h3>
-                      <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
-                          consectetur adipisicing elit.
-                          Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur non deserunt</p>
+                      <h3 class="text-gray-600 font-lg text-semibold leading-6">I am {{ user.profession.name }}</h3>
+                      <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">{{ user.about }}</p>
                       <ul class="text-gray-600 hover:text-gray-700 mt-2 divide-y">
                         <li class="flex items-center py-3">
                               <span>Roles</span>
-                              <span class="ml-auto">Teacher, Assistant</span>
+                              <span class="ml-auto flex space-x-1"><span v-for="role in user.roles" >{{ role.name }}, </span></span>
                           </li>
                           <li class="flex items-center py-3">
                               <span>Status</span>
@@ -122,7 +120,7 @@ const { user } = useAuthStore();
                           </li>
                           <li class="flex items-center py-3">
                               <span>Member since</span>
-                              <span class="ml-auto">Nov 07, 2016</span>
+                              <span class="ml-auto">{{ user.date_joined.split('T')[0] }}</span>
                           </li>
                       </ul>
                     </div>
@@ -442,28 +440,28 @@ const { user } = useAuthStore();
                           <div class="grid md:grid-cols-2 text-sm">
                               <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">First Name</div>
-                                  <div class="px-4 py-2">Jane</div>
+                                  <div class="px-4 py-2">{{ user.first_name }}</div>
                               </div>
                               <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">Last Name</div>
-                                  <div class="px-4 py-2">Doe</div>
+                                  <div class="px-4 py-2">{{ user.last_name }}</div>
                               </div>
                               <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">Birthday</div>
-                                  <div class="px-4 py-2">Feb 06, 1998</div>
+                                  <div class="px-4 py-2">{{ user.dob }}</div>
                               </div>
                               <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">Gender</div>
-                                  <div class="px-4 py-2">Female</div>
+                                  <div class="px-4 py-2">{{ user.gender.name }}</div>
                               </div>
                               <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">Contact No.</div>
-                                  <div class="px-4 py-2">+11 998001001</div>
+                                  <div class="px-4 py-2">+91-{{ user.mobile }}</div>
                               </div>
                               <div class="grid grid-cols-2">
                                   <div class="px-4 py-2 font-semibold">Email.</div>
                                   <div class="px-4 py-2">
-                                      <a class="text-blue-800" href="mailto:jane@example.com">jane@example.com</a>
+                                      <a class="text-blue-800" href="mailto:jane@example.com">{{ user.email }}</a>
                                   </div>
                               </div>
                           </div>
