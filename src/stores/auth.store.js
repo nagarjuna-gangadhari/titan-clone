@@ -6,65 +6,7 @@ const toast = useToast();
 
 export const useAuthStore = defineStore('AUTH', {
   state: () => ({
-    profile: {
-      gender: { id: 1, name: 'Male' },
-      genders: [{id:1, name:'Male'}],
-      firstName: "XXXXXXXX",
-      lastName: "YYYYYYYYY",
-      mobile: "00000000000",
-      country: { id: 1, name: 'India' },
-      state: { id: 1, name: 'Karnataka' },
-      city: { id: 1, name: 'Bengaaluru' },
-      dob: "2000-01-01",
-      termOfService: false,
-      pinCode: "123456",
-      email: 'xyz@xyz.com',
-      profession: { id: 1, name: 'Self Employed' },
-      professions: [{ id: 1, name: 'Self Employed' }],
-      education: { id: 1, name: 'PHD' },
-      linkedIn: 'https://in.linkedin.com/xyz',
-      about: 'I am .....',
-      preferences: [
-        {id:1, name: 'Get Mails', status:true},
-        {id:2, name: 'Get Messages', status:true},
-        {id:3, name: 'Watsapp', status:true},
-        {id:4, name: 'Calls', status:true},
-      ],
-      roles: [
-        {
-          id: 1, name: 'Teacher', opted: true, status: { id: 1, name: 'Approved' },
-          history: [
-            { id: 1, name: 'Role Approved', date: '12-12-2009' },
-            { id: 2, name: 'Meeting', date: '11-12-2009' },
-            { id: 3, name: 'Role Opted', date: '01-12-2009' },
-          ]
-        },
-        {
-          id: 2, name: 'CD', opted: true, status: { id: 2, name: 'Pending' },
-          history: [
-            { id: 1, name: 'Role Approved', date: '12-12-2009' },
-            { id: 2, name: 'Meeting', date: '11-12-2009' },
-            { id: 3, name: 'Role Opted', date: '01-12-2009' },
-          ]
-        },
-        {
-          id: 3, name: 'FT', opted: true, status: { id: 3, name: 'Approved' },
-          history: [
-            { id: 1, name: 'Role Approved', date: '12-12-2009' },
-            { id: 2, name: 'Meeting', date: '11-12-2009' },
-            { id: 3, name: 'Role Opted', date: '01-12-2009' },
-          ]
-        },
-        {
-          id: 4, name: 'Others', opted: false, status: { id: 4, name: 'Approved' },
-          history: [
-            { id: 1, name: 'Role Approved', date: '12-12-2009' },
-            { id: 2, name: 'Meeting', date: '11-12-2009' },
-            { id: 3, name: 'Role Opted', date: '01-12-2009' },
-          ]
-        }
-      ]
-    },
+    profile: {"username":"xxxxx","email":"xxxxx","first_name":"xxxxx","last_name":"xxxxx","date_joined":"2000-01-01","terms":true,"reference":"xxxxxxx","dob":"2000-01-01","mobile":"xxxxxx","gender":{"id":100,"name":"Others"},"genders":[{"id":1,"name":"Male"},{"id":2,"name":"Female"},{"id":100,"name":"Others"}],"country":{"id":1,"name":"India"},"state":{"id":1,"name":"Karnataka"},"city":{"id":1,"name":"Bengaluru"},"pincode":'xxxxx',"professions":[{"id":1,"name":"Self Employed"},{"id":2,"name":"Home Maker"},{"id":3,"name":"Agriculture"},{"id":4,"name":"Medical"},{"id":5,"name":"Law"},{"id":6,"name":"Engineering"},{"id":7,"name":"Service"},{"id":8,"name":"Psu"},{"id":9,"name":"Student"},{"id":10,"name":"Teaching"},{"id":100,"name":"Others"}],"profession":{"id":6,"name":"Engineering"},"educations":[{"id":1,"name":"Phd"},{"id":2,"name":"Post Graduation"},{"id":3,"name":"Under Graduation"},{"id":4,"name":"Diploma"},{"id":5,"name":"High School"},{"id":100,"name":"Others"}],"education":{"id":2,"name":"Post Graduation"},"linkedIn":"linked.com/xyz","step":1,"groups":[],"roles":[{"id":1,"name":"TEACHER","opted":true,"activate":false,"status":"Opted","notes":"","history":[],"description":null},{"id":2,"name":"ASSITANT","opted":false,"activate":false,"status":false,"notes":"","history":[]},{"id":3,"name":"ASSITANT","opted":false,"activate":false,"status":false,"notes":"","history":[]}],"preferences":[{"id":1,"type":"Email","status":false},{"id":2,"type":"Sms","status":false},{"id":3,"type":"Watsapp","status":false}],"countries":[{"id":1,"name":"India"}],"states":[{"id":1,"name":"Karnataka"}],"cities":[{"id":1,"name":"Bengaluru"}]},
     token: '',
     access: '',
     refresh: '',
@@ -95,7 +37,6 @@ export const useAuthStore = defineStore('AUTH', {
             return null;
           }
           if (call_profile) {
-            console.log('updating user')
             this.update_user();
           }
         }else{
@@ -103,7 +44,6 @@ export const useAuthStore = defineStore('AUTH', {
         }
         return this.profile;
       }
-      console.log('-----1-----')
       this.logout()
       return null;
     },
@@ -113,7 +53,7 @@ export const useAuthStore = defineStore('AUTH', {
     async login(username, password) {
       const response = await authService.login(username, password);
       if (response) {
-        toast.success('login success...', )
+        toast.success('login...', )
         this.access = response.access;
         this.refresh = response.refresh;
         this.token = response;
@@ -127,7 +67,7 @@ export const useAuthStore = defineStore('AUTH', {
       return response;
     },
     logout() {
-      console.log('calling log out')
+      console.log('loged out...')
       this.token = null;
       this.access = null;
       this.refresh = null;
@@ -145,14 +85,11 @@ export const useAuthStore = defineStore('AUTH', {
           this.access = newAccess;
           localStorage.setItem('access', newAccess);
           localStorage.setItem('refresh', this.refresh);
-          console.log('----123---')
           this.update_user()
         } else {
-          console.log('-----2-----')
           this.logout();
         }
       } else {
-        console.log('-----3-----')
         this.logout();
       }
 
@@ -160,7 +97,6 @@ export const useAuthStore = defineStore('AUTH', {
     },
     async update_user() {
       const response = await authService.profile()
-      console.log(response)
       if (response) {
         this.profile= response.data
         this.username = response.data.username
@@ -168,7 +104,6 @@ export const useAuthStore = defineStore('AUTH', {
         this.mobile = response.data.mobile
         this.location()
       }else {
-        console.log('-----4-----')
         this.refreshToken();
       }
     },

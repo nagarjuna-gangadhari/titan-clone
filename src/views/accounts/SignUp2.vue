@@ -2,7 +2,7 @@
 <template>
   <div class="p-2 md:ml-4">
     <div class="md:p-10 ">
-      <div class="grid md:grid-cols-5 grid-rows-1 md:space-x-10 text-center">
+      <div class="grid md:grid-cols-5 grid-rows-1 md:space-x-2 text-center md:max-w-2xl mx-auto">
         <div @click="step = 1" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 1 }">
           Personal
         </div>
@@ -301,6 +301,23 @@
       </div>
       <div v-if="step == 2">
         <form>
+
+          <div class="relative my-6 w-full group">
+            <multi-select
+                :options="options"
+                :selected-values="selectedValues"
+              />
+
+              <p>Selected values: {{ selectedValues }}</p>
+              <label for="floating_dob"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Known Languages</label>
+            </div>
+
+            <language />
+
+          
+
           <div class="grid md:grid-cols-3 md:gap-4">
             <div class="relative my-6 w-full group">
               <Listbox v-model="profile.education">
@@ -389,8 +406,6 @@
           </div>
 
           <div class="grid md:grid-cols-2 md:gap-4">
-
-
             <div class="relative z-0 my-6 w-full group">
               <textarea v-model="profile.about" type="textarea" name="floating_description" id="floating_last_name"
                 class="block p-2 w-full text-sm text-gray-900 bg-transparent border rounded-lg border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -408,17 +423,40 @@
       </div>
       <div v-if="step == 3">
         <form>
+          
 
-          <div v-for="preference in profile.preferences" class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2 py-6">
+          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2 py-6">
             <div class="border-r-2">
-              <Switch v-model="preference.status" :class="preference.status ? 'bg-green-600' : 'bg-gray-200'"
+              <Switch v-model="profile.preferences.email" :class="profile.preferences.email ? 'bg-green-600' : 'bg-gray-200'"
                 class="relative inline-flex h-6 w-11 items-center rounded-full">
                 <span class="sr-only">Enable notifications</span>
-                <span :class="preference.status ? 'translate-x-6' : 'translate-x-1'"
+                <span :class="profile.preferences.email ? 'translate-x-6' : 'translate-x-1'"
                   class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
               </Switch>
             </div>
-            <div class="col-span-6 md:visible truncate p-4 text-start text-sm">{{ preference.type }}</div>
+            <div class="col-span-6 md:visible truncate p-4 text-start text-sm">Email</div>
+          </div>
+          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2 py-6">
+            <div class="border-r-2">
+              <Switch v-model="profile.preferences.sms" :class="profile.preferences.sms ? 'bg-green-600' : 'bg-gray-200'"
+                class="relative inline-flex h-6 w-11 items-center rounded-full">
+                <span class="sr-only">Enable notifications</span>
+                <span :class="profile.preferences.sms ? 'translate-x-6' : 'translate-x-1'"
+                  class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
+              </Switch>
+            </div>
+            <div class="col-span-6 md:visible truncate p-4 text-start text-sm">Sms</div>
+          </div>
+          <div class="grid md:grid-cols-7 h-[5rem] text-sm text-center items-center border-t-2 py-6">
+            <div class="border-r-2">
+              <Switch v-model="profile.preferences.watsapp" :class="profile.preferences.watsapp ? 'bg-green-600' : 'bg-gray-200'"
+                class="relative inline-flex h-6 w-11 items-center rounded-full">
+                <span class="sr-only">Enable notifications</span>
+                <span :class="profile.preferences.watsapp ? 'translate-x-6' : 'translate-x-1'"
+                  class="inline-block h-4 w-4 transform rounded-full bg-white transition" />
+              </Switch>
+            </div>
+            <div class="col-span-6 md:visible truncate p-4 text-start text-sm">Watsapp</div>
           </div>
 
         </form>
@@ -468,6 +506,8 @@
 
 
 <script setup>
+import Language from '@/components/accounts/Language.vue';
+import MultiSelect from '@/components/accounts/MultiSelect.vue'
 import { CheckCircleIcon } from '@heroicons/vue/24/outline/index.js';
 import { ref, computed } from 'vue'
 import { useToast } from "vue-toastification";
@@ -487,6 +527,9 @@ import {
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { useAuthStore} from "@/stores";
+
+
+
 const authStore = useAuthStore()
 const profile = authStore.profile
 
@@ -499,6 +542,8 @@ var mobile_otp = ref('');
 var step = ref(1);
 
 
+const options= ref([{ value: 1, text: 'Option 1' }, { value: 2, text: 'Option 2' }, { value: 3, text: 'Option 3' }]);
+var selectedValues= ref([]);
 
 
 

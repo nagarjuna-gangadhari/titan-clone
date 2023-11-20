@@ -1,16 +1,11 @@
 
 export const authService = {
     async login(username, password) {
-      try {
-        const response = await axios.post('/auth/jwt/create/', { username, password });
-        if (response && response.data) {
-          return response.data;
-        }
-        return null;
-      } catch (error) {
-        console.error(error);
-        return null;
+      const response = await axios.post('/auth/jwt/create/', { username, password });
+      if (response && response.data) {
+        return response.data;
       }
+      return response;
     },
     
     register(data) {
@@ -24,7 +19,6 @@ export const authService = {
       try {
         const response = await axios.get('/api/v1/profile/', {});
         if (response){
-          console.log(response)
           return response.data;
         }
       } catch (error) {

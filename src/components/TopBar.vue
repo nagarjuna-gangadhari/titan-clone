@@ -14,7 +14,7 @@
       <AcademicCapIcon class="w-6 h-6 bg-green-500 rounded-full" />
       <div class="text-xs font-bold font-sans">{{title}}</div>
       <p class="">|</p>
-      <p v-text="path"></p>
+      <p class="text-xs text-gray-500" v-text="path"></p>
     </div>
     <Listbox v-model="general_store.selectedfontFamily">
       <div class="relative mt-1">
