@@ -6,15 +6,43 @@ const toast = useToast();
 
 export const useAuthStore = defineStore('AUTH', {
   state: () => ({
-    profile: {"username":"xxxxx","email":"xxxxx","first_name":"xxxxx","last_name":"xxxxx","date_joined":"2000-01-01","terms":true,"reference":"xxxxxxx","dob":"2000-01-01","mobile":"xxxxxx","gender":{"id":100,"name":"Others"},"genders":[{"id":1,"name":"Male"},{"id":2,"name":"Female"},{"id":100,"name":"Others"}],"country":{"id":1,"name":"India"},"state":{"id":1,"name":"Karnataka"},"city":{"id":1,"name":"Bengaluru"},"pincode":'xxxxx',"professions":[{"id":1,"name":"Self Employed"},{"id":2,"name":"Home Maker"},{"id":3,"name":"Agriculture"},{"id":4,"name":"Medical"},{"id":5,"name":"Law"},{"id":6,"name":"Engineering"},{"id":7,"name":"Service"},{"id":8,"name":"Psu"},{"id":9,"name":"Student"},{"id":10,"name":"Teaching"},{"id":100,"name":"Others"}],"profession":{"id":6,"name":"Engineering"},"educations":[{"id":1,"name":"Phd"},{"id":2,"name":"Post Graduation"},{"id":3,"name":"Under Graduation"},{"id":4,"name":"Diploma"},{"id":5,"name":"High School"},{"id":100,"name":"Others"}],"education":{"id":2,"name":"Post Graduation"},"linkedIn":"linked.com/xyz","step":1,"groups":[],"roles":[{"id":1,"name":"TEACHER","opted":true,"activate":false,"status":"Opted","notes":"","history":[],"description":null},{"id":2,"name":"ASSITANT","opted":false,"activate":false,"status":false,"notes":"","history":[]},{"id":3,"name":"ASSITANT","opted":false,"activate":false,"status":false,"notes":"","history":[]}],"preferences":[{"id":1,"type":"Email","status":false},{"id":2,"type":"Sms","status":false},{"id":3,"type":"Watsapp","status":false}],"countries":[{"id":1,"name":"India"}],"states":[{"id":1,"name":"Karnataka"}],"cities":[{"id":1,"name":"Bengaluru"}]},
+    profile: { 
+      "username": "xxxxx", 
+      "email": "xxxxx", 
+      "first_name": "xxxxx", 
+      "last_name": "xxxxx", 
+      "date_joined": "2000-01-01", 
+      "terms": true, 
+      "reference": "xxxxxxx", 
+      "dob": "2000-01-01", 
+      "mobile": "xxxxxx", 
+      "gender": { "id": 100, "name": "Others" }, 
+      "genders": [{ "id": 1, "name": "Male" }, { "id": 2, "name": "Female" }, { "id": 100, "name": "Others" }], 
+      "country": { "id": 1, "name": "India" }, 
+      "state": { "id": 1, "name": "Karnataka" }, 
+      "city": { "id": 1, "name": "Bengaluru" }, 
+      "pincode": 'xxxxx', 
+      "professions": [{ "id": 1, "name": "Self Employed" }, { "id": 2, "name": "Home Maker" }, { "id": 3, "name": "Agriculture" }, { "id": 4, "name": "Medical" }, { "id": 5, "name": "Law" }, { "id": 6, "name": "Engineering" }, { "id": 7, "name": "Service" }, { "id": 8, "name": "Psu" }, { "id": 9, "name": "Student" }, { "id": 10, "name": "Teaching" }, { "id": 100, "name": "Others" }], 
+      "profession": { "id": 6, "name": "Engineering" }, 
+      "educations": [{ "id": 1, "name": "Phd" }, { "id": 2, "name": "Post Graduation" }, { "id": 3, "name": "Under Graduation" }, { "id": 4, "name": "Diploma" }, { "id": 5, "name": "High School" }, { "id": 100, "name": "Others" }], "education": { "id": 2, "name": "Post Graduation" }, 
+      "linkedIn": "linked.com/xyz", 
+      "step": 1, 
+      "groups": [], 
+      "roles": [{ "id": 1, "name": "TEACHER", "opted": true, "activate": false, "status": "Opted", "notes": "", "history": [], "description": null }, { "id": 2, "name": "ASSITANT", "opted": false, "activate": false, "status": false, "notes": "", "history": [] }, { "id": 3, "name": "ASSITANT", "opted": false, "activate": false, "status": false, "notes": "", "history": [] }], 
+      "preferences": [{ "id": 1, "type": "Email", "status": false }, { "id": 2, "type": "Sms", "status": false }, { "id": 3, "type": "Watsapp", "status": false }],
+      "language": { "id": 1, "name": 'English', "code": 101 },
+    },
     token: '',
     access: '',
     refresh: '',
     returnUrl: '',
-    locations: [{id:1, country:'India', state:'Maharasta', city:'Mumbai'}],
+    locations: [{ id: 1, country: 'India', state: 'Delhi', city: 'Delhi' }],
+    countries: [],
+    languages: [{ "id": 1, "name": 'English', "code": 101 }],
     username: '',
     email: '',
     mobile: '',
+    old_profile: {},
   }),
 
   getters: {
@@ -30,7 +58,6 @@ export const useAuthStore = defineStore('AUTH', {
       if (this.access) {
         const access_data = authService.parseJwt(this.access);
         if (access_data) {
-          console.log(access_data.exp)
           if (+new Date <= access_data.exp) {
             console.log('token expaired');
             this.refresh();
@@ -39,7 +66,7 @@ export const useAuthStore = defineStore('AUTH', {
           if (call_profile) {
             this.update_user();
           }
-        }else{
+        } else {
           this.refresh()
         }
         return this.profile;
@@ -47,13 +74,56 @@ export const useAuthStore = defineStore('AUTH', {
       this.logout()
       return null;
     },
+
+    changed_profile(){
+      const diffMap = {};
+      const map1 = JSON.parse(this.old_profile)
+      const map2 = this.profile
+      for (const key in map1) {
+        if (typeof map1[key] === 'object' && map1[key] !== null) {
+          if (!map2[key] || typeof map2[key] !== typeof map1[key]) {
+            diffMap[key] = map1[key];
+          } else if (Array.isArray(map1[key])) {
+            const diffArrayValues = [];
+            for (let i = 0; i < map1[key].length; i++) {
+              const firstObject = map1[key][i];
+              const secondObject = map2[key][i];
+
+              if (JSON.stringify(firstObject) !== JSON.stringify(secondObject)) {
+                diffArrayValues.push(firstObject);
+              }
+            }
+
+            if (diffArrayValues.length > 0) {
+              diffMap[key] = diffArrayValues;
+            }
+          } else {
+            const changedObjectValues = {};
+            for (const subKey in map1[key]) {
+              if (JSON.stringify(map1[key][subKey]) !== JSON.stringify(map2[key][subKey])) {
+                changedObjectValues[subKey] = map1[key][subKey];
+              }
+            }
+
+            if (Object.keys(changedObjectValues).length > 0) {
+              diffMap[key] = changedObjectValues;
+            }
+          }
+        } else if (map1[key] !== map2[key]) {
+          diffMap[key] = map1[key];
+        }
+      }
+      return diffMap
+    }
   },
+
+
 
   actions: {
     async login(username, password) {
       const response = await authService.login(username, password);
       if (response) {
-        toast.success('login...', )
+        toast.success('login...',)
         this.access = response.access;
         this.refresh = response.refresh;
         this.token = response;
@@ -98,45 +168,66 @@ export const useAuthStore = defineStore('AUTH', {
     async update_user() {
       const response = await authService.profile()
       if (response) {
-        this.profile= response.data
-        this.username = response.data.username
-        this.email = response.data.email
-        this.mobile = response.data.mobile
+        this.profile = response
+        
+        this.username = response.username
+        this.email = response.email
+        this.mobile = response.mobile
         this.location()
-      }else {
+      } else {
         this.refreshToken();
       }
     },
 
 
-    async location(){
-      const p = await authService.location()
-        if (p){
-          this.locations = p.data
-          //--------------------------------------------
-          this.profile.countries = this.locations.map((location) => {
-            return { id: location.id, name: location.country };
-          });
-          this.profile.country = this.profile.countries.filter((country)=>country.name==this.profile.country)[0]
-          //-------------------------------------------------------
-          this.profile.states = this.locations.map((location) => {
-            return { id: location.id, name: location.state };
-          });
-          this.profile.state = this.profile.states.filter((state)=>state.name==this.profile.state)[0]
-          //-----------------------------------------------------
-          this.profile.cities = this.locations.map((location) => {
-            return { id: location.id, name: location.city };
-          });
-          this.profile.city = this.profile.cities.filter((city)=>city.name==this.profile.city)[0]
-          //-------------------------------------------------
+    async location() {
+      const response = await authService.location()
+      if (response) {
+        // this.locations = response.data['locations']
+        this.languages = response.data['languages']
+        const locations = response.data['locations']
+        //--------------------------------------------
+        this.countries = removeDuplicateNames(locations.map((location) => {
+          return { id: location.id, name: location.country };
+        }));
+        this.profile.country = this.countries.filter((country) => country.name == this.profile.country)[0]
+        //-------------------------------------------------------
+        this.states = removeDuplicateNames(locations.map((location) => {
+          return { id: location.id, name: location.state };
+        }));
+        this.profile.state = this.states.filter((state) => state.name == this.profile.state)[0]
+        //-----------------------------------------------------
+        this.cities = removeDuplicateNames(locations.map((location) => {
+          return { id: location.id, name: location.city };
+        }));
+        this.profile.city = this.cities.filter((city) => city.name == this.profile.city)[0]
+        //-------------------------------------------------
 
-          return this.locations
-        }
-      
-      
+        this.old_profile = JSON.stringify(this.profile)
+        return this.locations
+      }
+
+
     }
     
+
 
     // Other actions remain unchanged
   },
 });
+
+function removeDuplicateNames(data) {
+  const uniqueNames = {};
+  const filteredData = [];
+
+  for (const item of data) {
+    const name = item.name;
+    if (!uniqueNames.hasOwnProperty(name)) {
+      uniqueNames[name] = true;
+      filteredData.push(item);
+    }
+  }
+
+  return filteredData;
+};
+

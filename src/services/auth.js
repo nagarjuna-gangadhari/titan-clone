@@ -47,9 +47,10 @@ export const authService = {
 
     async profile(){
       const response = await axios.get('/auth/profile')
-      console.log(response)
       if (response){
-        return response
+        return response.data
+      }else{
+        return null
       }
     },
 

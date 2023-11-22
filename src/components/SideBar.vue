@@ -46,7 +46,7 @@
         </Dialog>
     </TransitionRoot>
  
-    <div class="hidden w-12 hover:w-64 bg-gray-50 border-r border-gray-200 md:block drop-shadow-2xl">
+    <div class="hidden w-12 hover:w-64 bg-gray-50 border-r border-gray-200 md:block drop-shadow-2xl h-screen">
         <nav class="mt-2">
             <NavItem :item="item" v-for="item in navItems" :key="item.label" />
         </nav>
@@ -130,3 +130,11 @@ const navItems = [
 
 
 </script>
+
+<style scoped>
+
+.h-screen{
+  height:calc(100vh - 2rem)!important;
+  overflow-y: scroll;
+}
+</style>

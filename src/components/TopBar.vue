@@ -162,7 +162,6 @@ const title = import.meta.env.VITE_APP_TITLE;
 var path = ref('');
 
 router.afterEach((to, from) =>{
-  console.log(to.path)
   path.value=to.path.slice(1)
 });
 </script>

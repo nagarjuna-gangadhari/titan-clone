@@ -5,7 +5,6 @@
   import { useToast } from "vue-toastification";
   import { GeneralStore } from "@/stores";
   const general_store = GeneralStore();
-  console.log(general_store.selectedfontFamily)
 
 
   const toast = useToast();

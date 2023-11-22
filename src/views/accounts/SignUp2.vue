@@ -3,18 +3,8 @@
   <div class="p-2 md:ml-4">
     <div class="md:p-10 ">
       <div class="grid md:grid-cols-5 grid-rows-1 md:space-x-2 text-center md:max-w-2xl mx-auto">
-        <div @click="step = 1" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 1 }">
-          Personal
-        </div>
-        <div @click="step = 2" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 2 }">
-          Professional</div>
-        <div @click="step = 3" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 3 }">
-          Prefrence
-        </div>
-        <div @click="step = 4" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 4 }">Role
-        </div>
-        <div @click="step = 5" class="md:mx-4 cursor-pointer" :class="{ 'border-b-2 border-[#FFA800]': step == 5 }">
-          Meet-Up
+        <div  v-for="(key,val) in {1:'Personal', 2:'Professional', 3:'Prefrence', 4:'Role', 5:'Meet-Up'}"  @click="step = val" class="md:mx-4 cursor-pointer" :class="{ 'text-[#FFA800] font-bold md:font-lg md:text-current md:border-b-2 md:border-[#FFA800]': step == val }">
+          {{ key }}
         </div>
       </div>
     </div>
@@ -86,6 +76,49 @@
               <label for="floating_dob"
                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 DOB</label>
+            </div>
+            <div class="relative my-4 w-full group flex">
+              <Combobox v-model="profile.language">
+                <div class="relative mt-1 w-full">
+                  <div
+                    class="relative w-full cursor-default overflow-hidden rounded-lg bg-transperant text-left sm:text-sm focus:ring-0">
+                    <ComboboxInput id="select_language"
+                      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      :displayValue="(language) => language.name" @change="languageQuery = $event.target.value" />
+                    <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon class="h-5 w-5 text-gray-400 z-10" aria-hidden="true" />
+                    </ComboboxButton>
+                  </div>
+                  <TransitionRoot leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"
+                    @after-leave="languageQuery = ''">
+                    <ComboboxOptions
+                      class="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                      <div v-if="filteredlanguages.length === 0 && languageQuery !== ''"
+                        class="relative cursor-default select-none py-2 px-4 text-gray-700">
+                        Nothing found.
+                      </div>
+
+                      <ComboboxOption v-for="language in filteredlanguages" as="template" :key="language.id"
+                        :value="language" v-slot="{ selected, active }">
+                        <li class="relative cursor-default select-none py-2 pl-10 pr-4" :class="{
+                          'bg-teal-600 text-white': active,
+                          'text-gray-900': !active,
+                        }">
+                          <span class="block truncate" :class="{ 'font-medium': selected, 'font-normal': !selected }">
+                            {{ language.name }}
+                          </span>
+                          <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3"
+                            :class="{ 'text-white': active, 'text-teal-600': !active }">
+                            <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                          </span>
+                        </li>
+                      </ComboboxOption>
+                    </ComboboxOptions>
+                  </TransitionRoot>
+                </div>
+              </Combobox>
+              <label for="select_language"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Primery Language</label>
             </div>
           </div>
           <div class="grid md:grid-cols-3 md:gap-4">
@@ -301,22 +334,14 @@
       </div>
       <div v-if="step == 2">
         <form>
-
-          <div class="relative my-6 w-full group">
-            <multi-select
-                :options="options"
-                :selected-values="selectedValues"
-              />
-
-              <p>Selected values: {{ selectedValues }}</p>
+          <!-- <div class="grid md:grid-cols-1 md:gap-4">
+            <div class="relative my-6 w-full group">
+              <multi-select :options="options" :selected-values="selectedValues"/>
               <label for="floating_dob"
                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 Known Languages</label>
             </div>
-
-            <language />
-
-          
+          </div>        -->
 
           <div class="grid md:grid-cols-3 md:gap-4">
             <div class="relative my-6 w-full group">
@@ -526,12 +551,15 @@ import {
   Switch, Popover, PopoverButton, PopoverPanel
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
-import { useAuthStore} from "@/stores";
+import { useAuthStore } from "@/stores";
 
 
 
 const authStore = useAuthStore()
 const profile = authStore.profile
+
+
+const old_profile = new Map(profile.value)
 
 const toast = useToast();
 var email_otp_sent = ref(false);
@@ -542,74 +570,17 @@ var mobile_otp = ref('');
 var step = ref(1);
 
 
-const options= ref([{ value: 1, text: 'Option 1' }, { value: 2, text: 'Option 2' }, { value: 3, text: 'Option 3' }]);
-var selectedValues= ref([]);
-
-
-
-
-// var profile = ref({
-//   gender: { id: 1, name: 'Male' },
-//   firstName: "XXXXXXXX",
-//   lastName: "YYYYYYYYY",
-//   mobile: "9876543210",
-//   country: { id: 1, name: 'India' },
-//   state: { id: 1, name: 'AP' },
-//   city: { id: 1, name: 'Goa' },
-//   dob: "2001-11-21",
-//   termOfService: false,
-//   pinCode: "123456",
-//   emial: 'xyz@gmail.com',
-//   profession: { id: 1, name: 'Self Employed' },
-//   education: { id: 1, name: 'PHD' },
-//   linkedIn: 'https://in.linkedin.com/xyz',
-//   about: 'I am .....',
-//   preferences: [
-//     {id:1, name: 'Get Mails', status:true},
-//     {id:2, name: 'Get Messages', status:true},
-//     {id:3, name: 'Watsapp', status:true},
-//     {id:4, name: 'Calls', status:true},
-//   ],
-//   roles: [
-//     {
-//       id: 1, name: 'Teacher', opted: true, status: { id: 1, name: 'Approved' },
-//       history: [
-//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
-//         { id: 2, name: 'Meeting', date: '11-12-2009' },
-//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
-//       ]
-//     },
-//     {
-//       id: 2, name: 'CD', opted: true, status: { id: 2, name: 'Pending' },
-//       history: [
-//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
-//         { id: 2, name: 'Meeting', date: '11-12-2009' },
-//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
-//       ]
-//     },
-//     {
-//       id: 3, name: 'FT', opted: true, status: { id: 3, name: 'Approved' },
-//       history: [
-//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
-//         { id: 2, name: 'Meeting', date: '11-12-2009' },
-//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
-//       ]
-//     },
-//     {
-//       id: 4, name: 'Others', opted: false, status: { id: 4, name: 'Approved' },
-//       history: [
-//         { id: 1, name: 'Role Approved', date: '12-12-2009' },
-//         { id: 2, name: 'Meeting', date: '11-12-2009' },
-//         { id: 3, name: 'Role Opted', date: '01-12-2009' },
-//       ]
-//     }
-//   ]
-// });
+// const options= ref([{ value: 1, text: 'Option 1' }, { value: 2, text: 'Option 2' }, { value: 3, text: 'Option 3' }, { value: 4, text: 'Option 4' }, { value: 5, text: 'Option 5' }, { value: 6, text: 'Option 6' }]);
+// var selectedValues= ref([]);
 
 
 function profileSubmit() {
-  console.log(this.profile)
-  toast.success('personal details updated')
+
+  console.log(authStore.changed_profile);
+  if(authStore.changed_profile){
+    toast.success('personal details updated')
+
+  }
 }
 
 
@@ -650,13 +621,26 @@ function verifyOTP(mobile = false, email = false) {
   }
 }
 
+// ------------------------------------------------------
+let languageQuery = ref('')
+let filteredlanguages = computed(() =>
+  languageQuery.value === ''
+    ? authStore.languages
+    : authStore.languages.filter((language) =>
+      language.name
+        .toLowerCase()
+        .replace(/\s+/g, '')
+        .includes(languageQuery.value.toLowerCase().replace(/\s+/g, ''))
+    )
+)
+
 
 // ------------------------------------------------------
 let countryQuery = ref('')
 let filteredcountries = computed(() =>
   countryQuery.value === ''
-    ? profile.countries
-    : profile.countries.value.filter((country) =>
+    ? authStore.countries
+    : authStore.countries.filter((country) =>
       country.name
         .toLowerCase()
         .replace(/\s+/g, '')
@@ -667,8 +651,8 @@ let filteredcountries = computed(() =>
 let stateQuery = ref('')
 let filteredStates = computed(() =>
   stateQuery.value === ''
-    ? profile.states
-    : profile.states.filter((state) =>
+    ? authStore.states
+    : authStore.states.filter((state) =>
       state.name
         .toLowerCase()
         .replace(/\s+/g, '')
@@ -679,8 +663,8 @@ let filteredStates = computed(() =>
 let cityQuery = ref('')
 let filteredCities = computed(() =>
   cityQuery.value === ''
-    ? profile.cities
-    : profile.cities.filter((city) =>
+    ? authStore.cities
+    : authStore.cities.filter((city) =>
       city.name
         .toLowerCase()
         .replace(/\s+/g, '')
