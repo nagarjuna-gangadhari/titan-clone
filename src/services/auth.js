@@ -1,3 +1,4 @@
+import { useAuthStore } from "../stores/auth.store";
 
 export const authService = {
     async login(username, password) {
@@ -14,17 +15,6 @@ export const authService = {
           email: data.email,
           password: data.password
         });
-    },
-    async user_data() {
-      try {
-        const response = await axios.get('/api/v1/profile/', {});
-        if (response){
-          return response.data;
-        }
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
     },
     async refreshToken(refreshToken) {
       try {
@@ -46,12 +36,24 @@ export const authService = {
     },
 
     async profile(){
-      const response = await axios.get('/auth/profile')
+      const response = await axios.get('/auth/profile/get')
       if (response){
         return response.data
       }else{
         return null
       }
+    },
+    async update_profile(data){
+      console.log(data)
+      axios.post('/auth/profile/update', {
+        'data': data
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     },
 
     async location(){

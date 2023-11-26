@@ -31,6 +31,7 @@ export const useAuthStore = defineStore('AUTH', {
       "roles": [{ "id": 1, "name": "TEACHER", "opted": true, "activate": false, "status": "Opted", "notes": "", "history": [], "description": null }, { "id": 2, "name": "ASSITANT", "opted": false, "activate": false, "status": false, "notes": "", "history": [] }, { "id": 3, "name": "ASSITANT", "opted": false, "activate": false, "status": false, "notes": "", "history": [] }], 
       "preferences": [{ "id": 1, "type": "Email", "status": false }, { "id": 2, "type": "Sms", "status": false }, { "id": 3, "type": "Watsapp", "status": false }],
       "language": { "id": 1, "name": 'English', "code": 101 },
+      'abount': '',
     },
     token: '',
     access: '',
@@ -44,11 +45,9 @@ export const useAuthStore = defineStore('AUTH', {
     mobile: '',
     old_profile: {},
   }),
-
   getters: {
     user() {
       let call_profile = false;
-
       if (!this.access && localStorage.getItem('access') && localStorage.getItem('refresh')) {
         console.log('local token...');
         this.refresh = localStorage.getItem('refresh');
@@ -64,7 +63,7 @@ export const useAuthStore = defineStore('AUTH', {
             return null;
           }
           if (call_profile) {
-            this.update_user();
+            this.refreshUser();
           }
         } else {
           this.refresh()
@@ -74,15 +73,14 @@ export const useAuthStore = defineStore('AUTH', {
       this.logout()
       return null;
     },
-
-    changed_profile(){
+    profileChanges(){
       const diffMap = {};
       const map1 = JSON.parse(this.old_profile)
       const map2 = this.profile
       for (const key in map1) {
         if (typeof map1[key] === 'object' && map1[key] !== null) {
           if (!map2[key] || typeof map2[key] !== typeof map1[key]) {
-            diffMap[key] = map1[key];
+            diffMap[key] = map2[key];
           } else if (Array.isArray(map1[key])) {
             const diffArrayValues = [];
             for (let i = 0; i < map1[key].length; i++) {
@@ -90,7 +88,7 @@ export const useAuthStore = defineStore('AUTH', {
               const secondObject = map2[key][i];
 
               if (JSON.stringify(firstObject) !== JSON.stringify(secondObject)) {
-                diffArrayValues.push(firstObject);
+                diffArrayValues.push(secondObject);
               }
             }
 
@@ -101,7 +99,7 @@ export const useAuthStore = defineStore('AUTH', {
             const changedObjectValues = {};
             for (const subKey in map1[key]) {
               if (JSON.stringify(map1[key][subKey]) !== JSON.stringify(map2[key][subKey])) {
-                changedObjectValues[subKey] = map1[key][subKey];
+                changedObjectValues[subKey] = map2[key][subKey];
               }
             }
 
@@ -110,15 +108,12 @@ export const useAuthStore = defineStore('AUTH', {
             }
           }
         } else if (map1[key] !== map2[key]) {
-          diffMap[key] = map1[key];
+          diffMap[key] = map2[key];
         }
       }
       return diffMap
     }
   },
-
-
-
   actions: {
     async login(username, password) {
       const response = await authService.login(username, password);
@@ -131,7 +126,7 @@ export const useAuthStore = defineStore('AUTH', {
         localStorage.setItem('refresh', response.refresh);
         document.cookie = response.refresh
         // localStorage.setItem('token', JSON.stringify(response));
-        this.update_user()
+        this.refreshUser()
         router.push(this.returnUrl || '/');
       }
       return response;
@@ -155,7 +150,7 @@ export const useAuthStore = defineStore('AUTH', {
           this.access = newAccess;
           localStorage.setItem('access', newAccess);
           localStorage.setItem('refresh', this.refresh);
-          this.update_user()
+          this.refreshUser()
         } else {
           this.logout();
         }
@@ -165,11 +160,10 @@ export const useAuthStore = defineStore('AUTH', {
 
 
     },
-    async update_user() {
+    async refreshUser() {
       const response = await authService.profile()
       if (response) {
         this.profile = response
-        
         this.username = response.username
         this.email = response.email
         this.mobile = response.mobile
@@ -178,8 +172,6 @@ export const useAuthStore = defineStore('AUTH', {
         this.refreshToken();
       }
     },
-
-
     async location() {
       const response = await authService.location()
       if (response) {
@@ -208,10 +200,22 @@ export const useAuthStore = defineStore('AUTH', {
       }
 
 
-    }
-    
+    },
+    async updateProfile(){
+      let pc = this.profileChanges
+      if (Object.keys(pc).length == 0){
+        return false
+      }else{
+        await authService.update_profile(pc).then(function(result) {
+            // here you can use the result of promiseB
+            console.log(result)
+        });
+          
+        toast.success('personal details updated')
+        
+      }
 
-
+    },
     // Other actions remain unchanged
   },
 });
