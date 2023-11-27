@@ -551,14 +551,12 @@ import {
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { useAuthStore } from "@/stores";
+import {router} from '@/routers';
 
 
+let authStore = useAuthStore()
+let profile = authStore.profile
 
-const authStore = useAuthStore()
-const profile = authStore.profile
-
-
-const old_profile = new Map(profile.value)
 
 const toast = useToast();
 var email_otp_sent = ref(false);
@@ -575,17 +573,15 @@ var step = ref(1);
 
 async function profileSubmit() {
   let cp = await authStore.updateProfile()
-}
+  }
 
 
 function sendOTP(mobile = false, email = false) {
   if (mobile) {
     this.mobile_otp_sent = true
-    console.log(this.profile.mobile)
 
   } else if (email) {
     this.email_otp_sent = true
-    console.log(this.profile.email)
   }
 }
 

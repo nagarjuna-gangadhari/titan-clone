@@ -208,9 +208,9 @@ export const useAuthStore = defineStore('AUTH', {
       }else{
         await authService.update_profile(pc).then(function(result) {
             // here you can use the result of promiseB
-            console.log(result)
         });
-          
+
+        this.old_profile = JSON.stringify(this.profile)
         toast.success('personal details updated')
         
       }

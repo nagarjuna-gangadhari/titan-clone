@@ -44,15 +44,16 @@ export const authService = {
       }
     },
     async update_profile(data){
-      console.log(data)
       axios.post('/auth/profile/update', {
         'data': data
       })
       .then(function (response) {
-        console.log(response);
+        return response
+        
       })
       .catch(function (error) {
         console.log(error);
+        return error
       });
     },
 
