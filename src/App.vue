@@ -1,9 +1,9 @@
 <script setup>
   import Sidebar2 from "./components/SideBar.vue";
   import TopBar from "./components/TopBar.vue";
-  import { useAuthStore } from "@/stores";
+  import { GeneralStore, useAuthStore } from "@/stores";
   import { useToast } from "vue-toastification";
-  import { GeneralStore } from "@/stores";
+  import { notificationService } from "@/services"
   const general_store = GeneralStore();
 
 
@@ -11,21 +11,25 @@
   const authstore = useAuthStore();
   document.title = import.meta.env.VITE_APP_TITLE;
 
-  const notificationSocket = new WebSocket('ws://' + import.meta.env.VITE_API_URL + '/ws/chat/notification/');
-  notificationSocket.onmessage = function (e) {
-      const data = JSON.parse(e.data);
-      const message = data['message'];
-      if(message){
-        console.log(message)
-        toast(message)
-        return message
-      }
+  if (!authstore.username ==''){
+    notificationService.general(authstore.username)
+  }
+
+  // const notificationSocket = new WebSocket(`ws://${import.meta.env.VITE_API_URL}/ws/chat/${authstore.username}/`);
+  // notificationSocket.onmessage = function (e) {
+  //     const data = JSON.parse(e.data);
+  //     const message = data['message'];
+  //     if(message){
+  //       console.log(message)
+  //       toast(message)
+  //       return message
+  //     }
       
-      // Handle incoming message
-  };
-  notificationSocket.onclose = function (e) {
-      console.error('Chat socket closed unexpectedly');
-  };
+  //     // Handle incoming message
+  // };
+  // notificationSocket.onclose = function (e) {
+  //     console.error('Chat socket closed unexpectedly');
+  // };
 
 
 

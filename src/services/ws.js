@@ -3,8 +3,8 @@ const toast = useToast();
 
 export const notificationService = {
 
-    general() {
-        const chatSocket = new WebSocket('ws://' + import.meta.env.VITE_API_URL + '/ws/chat/notification/');
+    general(id) {
+        const chatSocket = new WebSocket(`ws://${import.meta.env.VITE_API_URL}/ws/chat/${id}/`);
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             const message = data['message'];

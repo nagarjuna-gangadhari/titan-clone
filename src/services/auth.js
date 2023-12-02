@@ -36,7 +36,7 @@ export const authService = {
     },
 
     async profile(){
-      const response = await axios.get('/auth/profile/get')
+      const response = await axios.get('/auth/profile/get/')
       if (response){
         return response.data
       }else{
