@@ -104,7 +104,7 @@ const navItems = [
 	},
     {
 		href: "#", active: false,
-		label: "Exams",
+		label: "Assessment",
         icon: ClipboardDocumentIcon,
 		children: [
 			{ href: "/results", active: false, label: "Results", children: [], icon: StopIcon },

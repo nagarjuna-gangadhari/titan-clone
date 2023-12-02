@@ -211,7 +211,7 @@ export const useAuthStore = defineStore('AUTH', {
         });
 
         this.old_profile = JSON.stringify(this.profile)
-        toast.success('personal details updated')
+        toast.success('Profile Updated')
         
       }
 
