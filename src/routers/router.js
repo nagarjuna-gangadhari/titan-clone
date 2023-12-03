@@ -43,6 +43,14 @@ export const router = createRouter({
         ]
 
     },
+
+    { path: '/assessment', name: 'Assessment', meta: { requiresAuth: true },
+        children: [
+          {path: 'result', name: 'AssessmentResult', props: true, meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/assessments/Result.vue') },
+          {path: 'quiz', name: 'AssessmentQuiz', props: true, meta: { requiresAuth: true, roles: [] }, component: () => import('@/views/assessments/Quiz.vue') },
+        ]
+
+    },
     {path: '/help', name: 'Help', meta: { requiresAuth: true }, component: () => import('@/views/aux/help.vue')},
     {path: '/403', name: '403', meta: { requiresAuth: true }, component: () => import('@/views/aux/403.vue')},
     {path: '/404', name: '404', meta: { requiresAuth: true }, component: () => import('@/views/aux/404.vue')},

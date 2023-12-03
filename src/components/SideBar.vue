@@ -107,10 +107,10 @@ const navItems = [
 		label: "Assessment",
         icon: ClipboardDocumentIcon,
 		children: [
-			{ href: "/results", active: false, label: "Results", children: [], icon: StopIcon },
-            { href: "/quiz", active: false, label: "Quiz", children: [], icon: StopIcon },
-            { href: "/question", active: false, label: "Questions", children: [], icon: StopIcon },
-            { href: "/assesment", active: false, label: "Assesments", children: [], icon: StopIcon },
+			{ href: "/assessment/results", active: false, label: "Results", children: [], icon: StopIcon },
+            { href: "/assessment/quiz", active: false, label: "Quiz", children: [], icon: StopIcon },
+            { href: "/assessment/question", active: false, label: "Questions", children: [], icon: StopIcon },
+            { href: "/assessment/bundel", active: false, label: "Bundel", children: [], icon: StopIcon },
 		],
 		
 	},
